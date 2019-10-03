@@ -16,6 +16,6 @@ import sys
 
 print('Hey here should start the dialoge, so hi')
 name = input("What's your name? ")
-print("Nice to meet you " + name + "!")
-age = input("Your age? ")
-print("So, you are already " + age + " years old, " + name + "!")
+print("Nice to meet you coach " + name + "!")
+age = input("Are you ready to choose your dream team man? ")
+print("Alright " + name + " let's do ths sht (dude im just testing git desktop this is not official)")
