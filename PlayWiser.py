@@ -12,6 +12,9 @@ Created on Thu Oct 283 20:23:46 2019
 
 import sys
 
+#def selection(answer1):
+    
+
 def search():
 	position = input("Alriht. Let's start defining the first position player you want. Is it DFC, MC or DL:  ") #guys its just supercoding, we need to define evttng and correct syntax lol
 	if position == "DFC":
@@ -35,7 +38,7 @@ def search():
 def printPlayer(x):
 
 	#print players vector, array, list.... idk
-	print("the caractheristics of" + player + "are") #printPLayer(player)
+	print("the caractheristics of" + player + "are ......") #printPLayer(player)
 #    return(player)
     
     
@@ -44,11 +47,17 @@ name = input("What's your name? ")
 print("Nice to meet you coach " + name + "!")
 answer1= input("Are you here to search for a player (search) or just to ask some habilities (habilities) of a player?")
 
+
+#we should put all this in a function up there and here jsut put selection(answer1) and/or try this of try and except, im starting on python sorry guys
 if answer1 == "search":
 	search()
-else:
+    
+elif answer1 == "habilities":
 	player = input("Tell us the player you want to obtain features: ")
 	printPlayer(player)
+
+else:
+    print("please enter a valid answer")
 
 
 
