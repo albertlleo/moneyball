@@ -48,17 +48,22 @@ print("Nice to meet you coach " + name + "!")
 answer1= input("Are you here to search for a player (search) or just to ask some habilities (habilities) of a player?")
 
 
+try:
 #we should put all this in a function up there and here jsut put selection(answer1) and/or try this of try and except, im starting on python sorry guys
-if answer1 == "search":
-	search()
+    if answer1 == "search":
+    	search()
+        
+    elif answer1 == "habilities":
+    	player = input("Tell us the player you want to obtain features: ")
+    	printPlayer(player)
     
-elif answer1 == "habilities":
-	player = input("Tell us the player you want to obtain features: ")
-	printPlayer(player)
+    else:
+        print("please enter a valid answer")
 
-else:
-    print("please enter a valid answer")
+except KeyboardInterrupt:
+    print('You cancelled the operation.')
 
-
+except:
+    print('An error occured.')
 
 
