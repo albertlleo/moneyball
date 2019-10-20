@@ -1,8 +1,15 @@
 # Setup libraries:
 
 ### MACOSX:
+
+#### TTS:
 ```
-brew install portaudio
+brew install espeak
+pip install pyttsx3
+```
+
+#### ASR:
+```
 pip3 install SpeechRecognition
 pip3 install pyaudio
 pip3 install google-api-python-client
