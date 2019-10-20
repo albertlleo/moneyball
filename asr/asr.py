@@ -6,7 +6,7 @@
 import speech_recognition as sr
 
 
-JSON_PATH = "api/moneyball-b11c08bb2b37.json"
+JSON_PATH = "asr/api/moneyball-b11c08bb2b37.json"
 ASR_MODE = 0
 
 # 0 == Google Cloud Speech
