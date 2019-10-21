@@ -4,9 +4,11 @@
 # moneyball-1571579309592
 
 import speech_recognition as sr
+import os
 
 
-JSON_PATH = "asr/api/moneyball-b11c08bb2b37.json"
+
+JSON_PATH = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 ASR_MODE = 0
 
 # 0 == Google Cloud Speech
