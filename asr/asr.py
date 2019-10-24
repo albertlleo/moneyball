@@ -7,14 +7,11 @@ import speech_recognition as sr
 import os
 
 
-
-JSON_PATH = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 ASR_MODE = 0
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx
 # 2 == Google Speech hRecognition
-
 
 def recognizeSphinx(r, audio):
     speech = ''
@@ -53,7 +50,10 @@ def recognizeGoogleCloudSpeech(r, audio):
 
 
 def getCredentials():
-    with open(JSON_PATH, 'r') as file:
+    #json_path = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
+    f = open("keypath.txt", "r")
+    json_path = f.readline().rstrip()
+    with open(json_path, 'r') as file:
         google_cloud_speech_credentials = file.read()
 
     return google_cloud_speech_credentials
