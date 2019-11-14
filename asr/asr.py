@@ -45,7 +45,7 @@ def recognizeGoogleCloudSpeech(r, audio):
 
 def getCredentials():
     #json_path = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
-    f = open("keypath.txt", "r")
+    f = open("asr/keypath.txt", "r")
     json_path = f.readline().rstrip()
     with open(json_path, 'r') as file:
         google_cloud_speech_credentials = file.read()

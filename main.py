@@ -9,29 +9,29 @@ import spacy
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx
-# 2 == Google Speech hRecognition
-ASR_MODE = 1
+# 2 == Google Speech Recognition
+ASR_MODE = 0
 
 
 def main():
 
-    #speech = asr.processASR(ASR_MODE)
-    #if speech:
-    #    tts.processTextToSpeech(speech)
+    speech = asr.processASR(ASR_MODE)
+    if speech:
+        tts.processTextToSpeech(speech)
 
-	nlp = spacy.load('en')
-	doc = nlp("Next week I'll   be in Madrid.")
-	for token in doc:
-			print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format(
-        token.text,
-        token.idx,
-        token.lemma_,
-        token.is_punct,
-        token.is_space,
-        token.shape_,
-        token.pos_,
-        token.tag_
-    ))
+    nlp = spacy.load('en')
+    doc = nlp(speech)
+    for token in doc:
+        print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format(
+            token.text,
+            token.idx,
+            token.lemma_,
+            token.is_punct,
+            token.is_space,
+            token.shape_,
+            token.pos_,
+            token.tag_
+            ))
 
     
 
