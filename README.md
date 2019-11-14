@@ -43,5 +43,5 @@ https://spacy.io/usage
 
 # Documentation:
 
-### Frame semantics:
-https://docs.google.com/document/d/11duOBgWKc_xiDe-T3kX0mMB_GsoSUkt90YtQglwb0qQ/edit?usp=sharing
+### Google drive folder:
+https://drive.google.com/open?id=1YAXUxJB9JZ3LmcVz-amh_N1jnGcECgld
