@@ -7,7 +7,7 @@ import speech_recognition as sr
 import os
 
 
-ASR_MODE = 0
+ASR_MODE = 1
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx
