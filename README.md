@@ -39,3 +39,9 @@ https://github.com/bambocher/pocketsphinx-python/issues/28
 
 ### QUICK START SPACY:
 https://spacy.io/usage
+
+
+# Documentation:
+
+### Frame semantics:
+https://docs.google.com/document/d/11duOBgWKc_xiDe-T3kX0mMB_GsoSUkt90YtQglwb0qQ/edit?usp=sharing
