@@ -36,3 +36,6 @@ Modify the file asr/keypath.txt with your JSON path
 Troubleshooting ```pip3 install pocketsphinx```:
 https://github.com/bambocher/pocketsphinx-python/issues/28
 #this is a test
+
+### QUICK START SPACY:
+https://spacy.io/usage
