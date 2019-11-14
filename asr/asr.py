@@ -7,12 +7,6 @@ import speech_recognition as sr
 import os
 
 
-ASR_MODE = 1
-
-# 0 == Google Cloud Speech
-# 1 == Sphinx
-# 2 == Google Speech hRecognition
-
 def recognizeSphinx(r, audio):
     speech = ''
     try:
@@ -59,7 +53,7 @@ def getCredentials():
     return google_cloud_speech_credentials
 
 
-def processASR():
+def processASR(asr_mode):
     for index, name in enumerate(sr.Microphone.list_microphone_names()):
         print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))
 
@@ -70,9 +64,9 @@ def processASR():
         r.adjust_for_ambient_noise(source, duration=1)
         print("Say something!")
         audio = r.listen(source)
-        if 0 == ASR_MODE:
+        if 0 == asr_mode:
             speech = recognizeGoogleCloudSpeech(r, audio)
-        elif 1 == ASR_MODE:
+        elif 1 == asr_mode:
             speech = recognizeSphinx(r, audio)
         else:
             speech = recognizeGoogleSpeechRecognition(r, audio)

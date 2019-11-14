@@ -7,11 +7,15 @@ import spacy
 
 
 
+# 0 == Google Cloud Speech
+# 1 == Sphinx
+# 2 == Google Speech hRecognition
+ASR_MODE = 1
 
 
 def main():
 
-    #speech = asr.processASR()
+    #speech = asr.processASR(ASR_MODE)
     #if speech:
     #    tts.processTextToSpeech(speech)
 
