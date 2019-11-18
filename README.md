@@ -1,3 +1,14 @@
+# How to run script:
+To use console for input text:
+```
+python3 main.py
+```
+
+To use asr to recognize text:
+```
+python3 main.py --asr
+```
+
 # Setup libraries:
 
 ### MACOSX:
