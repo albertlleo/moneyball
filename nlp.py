@@ -24,7 +24,7 @@ def main():
     # For simplicity, we start off with only the blank English Language class
     # and no model or pre-defined pipeline loaded.
     nlp = English()
-    text = str(input("Write something (min 2 words):\n"))
+    text = str(input("Write something:\n"))
 
    
     players = FootballPlayerRecognizer(nlp)  
@@ -49,7 +49,7 @@ def main():
         print(token.lemma_)  
 
     
-    print("Token 1 has_player", doc[1]._.has_player)  
+
     print("Entities", [(e.text, e.label_) for e in doc.ents])  # all orgs are entities
 
 
