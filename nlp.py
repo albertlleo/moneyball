@@ -19,23 +19,17 @@ from spacy.matcher import PhraseMatcher
 from spacy.tokens import Doc, Span, Token
 
 
-@plac.annotations(
-    text=("Text to process", "positional", None, str),
-    companies=("Names of technology companies", "positional", None, str),
-)
-def main(text="", *companies):
+def main():
     # For simplicity, we start off with only the blank English Language class
     # and no model or pre-defined pipeline loaded.
     nlp = English()
-    
     text = str(input("Write something (min 2 words):\n"))
 
-    companies = ["Lionel Messi", "Cristiano Ronaldo", "Netflix", "Apple"]  # etc.
-    component = TechCompanyRecognizer(nlp, companies)  # initialise component
-    nlp.add_pipe(component, last=True)  # add last to the pipeline
+    players = ["Lionel Messi", "Cristiano Ronaldo", "Messi", "Ronaldo"]  # etc.
+    players = FootballPlayerRecognizer(nlp, players)  # initialise component
+    nlp.add_pipe(players, last=True)  # add last to the pipeline
 
 
-    #if not companies:  # set default companies if none are set via args
     buy_verbs = ["buy", "get", "purchase"]  # etc.
     component = VerbBuyRecognizer(nlp, buy_verbs)  # initialise component
     nlp.add_pipe(component, last=True)  # add last to the pipeline
@@ -56,7 +50,7 @@ def main(text="", *companies):
 
 ##########################################################################
 
-class TechCompanyRecognizer(object):
+class FootballPlayerRecognizer(object):
     """Example of a spaCy v2.0 pipeline component that sets entity annotations
     based on list of single or multiple-word company names. Companies are
     labelled as ORG and their spans are merged into one token. Additionally,
@@ -182,7 +176,7 @@ class VerbBuyRecognizer(object):
 
 
 if __name__ == "__main__":
-    plac.call(main)
+    main()
 
     # Expected output:
     # Pipeline ['tech_companies']
