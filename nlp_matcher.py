@@ -19,11 +19,14 @@ class VerbSearchRecognizer(object):
 
     name = "verb_search"  # component name, will show up in the pipeline
 
-    def __init__(self, nlp, companies=tuple(), label="VERB"):
+    def __init__(self, nlp, label="VERB"):
         """Initialise the pipeline component. The shared nlp instance is used
         to initialise the matcher with the shared vocab, get the label ID and
         generate Doc objects as phrase match patterns.
+
         """
+
+        companies = ["search", "find", "look for"]  # etc.
         self.label = nlp.vocab.strings[label]  # get entity label ID
 
         # Set up the PhraseMatcher – it can now take Doc objects as patterns,
@@ -85,11 +88,14 @@ class FootballPlayerRecognizer(object):
 
     name = "footbal_players"  # component name, will show up in the pipeline
 
-    def __init__(self, nlp, companies=tuple(), label="PROPN"):
+    def __init__(self, nlp, label="PROPN"):
         """Initialise the pipeline component. The shared nlp instance is used
         to initialise the matcher with the shared vocab, get the label ID and
         generate Doc objects as phrase match patterns.
         """
+
+        companies = ["Lukaku", "Modric", "Messi", "Ronaldo"]  # etc.
+
         self.label = nlp.vocab.strings[label]  # get entity label ID
 
         # Set up the PhraseMatcher – it can now take Doc objects as patterns,
@@ -148,11 +154,14 @@ class VerbBuyRecognizer(object):
 
     name = "verb_buy"  # component name, will show up in the pipeline
 
-    def __init__(self, nlp, companies=tuple(), label="VERB"):
+    def __init__(self, nlp, label="VERB"):
         """Initialise the pipeline component. The shared nlp instance is used
         to initialise the matcher with the shared vocab, get the label ID and
         generate Doc objects as phrase match patterns.
         """
+
+        companies = ["buy", "get", "purchase"]  # etc.
+
         self.label = nlp.vocab.strings[label]  # get entity label ID
 
         # Set up the PhraseMatcher – it can now take Doc objects as patterns,

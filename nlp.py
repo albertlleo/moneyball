@@ -26,19 +26,15 @@ def main():
     nlp = English()
     text = str(input("Write something (min 2 words):\n"))
 
-    players = ["Lukaku", "Modric", "Messi", "Ronaldo"]  # etc.
-    players = FootballPlayerRecognizer(nlp, players)  # initialise component
-    nlp.add_pipe(players, last=True)  # add last to the pipeline
+   
+    players = FootballPlayerRecognizer(nlp)  
+    nlp.add_pipe(players, last=True)  
 
+    component = VerbBuyRecognizer(nlp)  
+    nlp.add_pipe(component, last=True) 
 
-    buy_verbs = ["buy", "get", "purchase"]  # etc.
-    component = VerbBuyRecognizer(nlp, buy_verbs)  # initialise component
-    nlp.add_pipe(component, last=True)  # add last to the pipeline
-
-
-    seach_verbs = ["search", "find", "look for"]  # etc.
-    component = VerbSearchRecognizer(nlp, seach_verbs)  # initialise component
-    nlp.add_pipe(component, last=True)  # add last to the pipeline
+    component = VerbSearchRecognizer(nlp) 
+    nlp.add_pipe(component, last=True)  
 
 
     doc = nlp(text)
