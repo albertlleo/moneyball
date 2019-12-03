@@ -13,37 +13,34 @@ from semantics import *
 
 
 def main():
-    # For simplicity, we start off with only the blank English Language class
-    # and no model or pre-defined pipeline loaded.
     nlp = English()
     text = str(input("Write something:\n"))
 
-    verb = SemanticVerb()
-    verb.trace()
+    context = NlpContext()
+    verb_semantic = SemanticVerb()
 
     players = FootballPlayerRecognizer(nlp)
     nlp.add_pipe(players, last=True)
 
-    component = VerbBuyRecognizer(nlp)
-    nlp.add_pipe(component, last=True)
-
-    component = VerbSearchRecognizer(nlp)
+    component = VerbRecognizer(nlp, verb_semantic)
     nlp.add_pipe(component, last=True)
 
     doc = nlp(text)
     print("Pipeline", nlp.pipe_names)  # pipeline contains component name
     print("Tokens", [t.text for t in doc])  # company names from the list are merged
-    print("Doc has_player", doc._.has_player)  # Doc contains tech orgs
-    print("Doc buy_player", doc._.buy_player)  # Doc contains tech orgs
-    for token in doc:
-        print("Token has_player", token._.has_player)
-        print("Token has_player", token._.has_player)
-        print("Token has_player", token._.has_player)
+    #print("Doc has_player", doc._.has_player)  # Doc contains tech orgs
+    # print("Doc buy_player", doc._.buy_player)  # Doc contains tech orgs
 
     for token in doc:
-        print(token.lemma_)
+        if token._.has_verb:
+            context.has_verb = True
+            context.category_verb = verb_semantic.category(token)
 
-    print("Entities", [(e.text, e.label_) for e in doc.ents])  # all orgs are entities
+    context.trace()
+
+    # for token in doc:
+    #    print(token.lemma_)
+    # print("Entities", [(e.text, e.label_) for e in doc.ents])  # all orgs are entities
 
 
 if __name__ == "__main__":
