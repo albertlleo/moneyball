@@ -10,6 +10,8 @@ from nl import nlp_matcher
 from nl import semantics
 from nl import nlp_context
 
+DEBUG = True
+
 
 def debug_log(doc):
     for token in doc:
@@ -33,31 +35,27 @@ def main():
 
 def process(text):
     nlp = English()
-    context = nlp_context.NlpContext()
+    context = nlp_context.RequestContext()
 
     verb_semantic = semantics.SemanticVerb()
-    component = nlp_matcher.VerbRecognizer(nlp, verb_semantic)
-    nlp.add_pipe(component, last=True)
+    matcher_verb = nlp_matcher.VerbRecognizer(nlp, verb_semantic)
+    nlp.add_pipe(matcher_verb, last=True)
 
     attribute_semantic = semantics.SemanticPlayerAttribute()
-    component_attribute = nlp_matcher.PlayerAttributeRecognizer(nlp, attribute_semantic)
-    nlp.add_pipe(component_attribute, last=True)
+    matcher_attribute = nlp_matcher.PlayerAttributeRecognizer(nlp, attribute_semantic)
+    nlp.add_pipe(matcher_attribute, last=True)
 
     doc = nlp(text)
     print("Pipeline", nlp.pipe_names)  # pipeline contains component name
     print("Tokens", [t.text for t in doc])  # company names from the list are merged
 
     for token in doc:
-        if token._.has_verb:
-            context.has_verb = True
-            context.category_verb = verb_semantic.category(token)
-        if token._.has_attribute:
-            context.has_attribute = True
-            context.category_attribute = attribute_semantic.category(token)
+        matcher_verb.match(token, context, verb_semantic)
+        matcher_attribute.match(token, context, attribute_semantic)
 
-    context.trace()
-
-    #debug_log(doc)
+    if DEBUG:
+        debug_log(doc)
+        context.trace()
 
 
 if __name__ == "__main__":

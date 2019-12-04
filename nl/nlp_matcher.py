@@ -61,6 +61,12 @@ class VerbRecognizer(object):
     def has_verb(self, tokens):
         return any([t._.get("has_verb") for t in tokens])
 
+    def match(self, token, context, semantic):
+        if token._.has_verb:
+            context.has_verb = True
+            context.category_verb = semantic.category(token)
+
+
 
 ##########################################################################
 
@@ -159,5 +165,10 @@ class PlayerAttributeRecognizer(object):
 
     def has_attribute(self, tokens):
         return any([t._.get("has_attribute") for t in tokens])
+
+    def match(self, token, context, semantic):
+        if token._.has_attribute:
+            context.has_attribute = True
+            context.category_attribute = semantic.category(token)
 
 ##########################################################################

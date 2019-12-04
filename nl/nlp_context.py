@@ -5,7 +5,7 @@ Author: marco_bertola
 """
 
 
-class NlpContext:
+class RequestContext:
     has_verb = False
     category_verb = ""
 
