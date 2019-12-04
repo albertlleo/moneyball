@@ -5,6 +5,7 @@ from asr import asr
 from tts import tts
 import argparse
 import spacy
+from nl import nlp
 
 
 
@@ -23,25 +24,27 @@ def main():
     input_text = ""
     if args.asr :
         input_text = asr.processASR(ASR_MODE)
-    else :
+    else:
         input_text = input("ask:")
     
-    if input_text:
-        tts.processTextToSpeech(input_text)
+    #if input_text:
+    #    tts.processTextToSpeech(input_text)
 
-    nlp = spacy.load('en')
-    doc = nlp(input_text)
-    for token in doc:
-        print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format(
-            token.text,
-            token.idx,
-            token.lemma_,
-            token.is_punct,
-            token.is_space,
-            token.shape_,
-            token.pos_,
-            token.tag_
-            ))
+    nlp.process(input_text)
+
+    #nlp = spacy.load('en')
+    #doc = nlp(input_text)
+    #for token in doc:
+    #    print("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format(
+    #        token.text,
+    #        token.idx,
+    #        token.lemma_,
+    #        token.is_punct,
+    #        token.is_space,
+    #        token.shape_,
+    #        token.pos_,
+    #        token.tag_
+    #        ))
 
     
 

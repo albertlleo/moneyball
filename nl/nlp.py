@@ -6,30 +6,30 @@ Author: marco_bertola
 from __future__ import unicode_literals, print_function
 import plac
 from spacy.lang.en import English
-from spacy.matcher import PhraseMatcher
-from spacy.tokens import Doc, Span, Token
-from nlp_matcher import *
-from semantics import *
+from nl import nlp_matcher
+from nl import semantics
+from nl import nlp_context
 
 
 def main():
-    nlp = English()
     text = str(input("Write something:\n"))
+    process(text)
 
-    context = NlpContext()
-    verb_semantic = SemanticVerb()
 
-    players = FootballPlayerRecognizer(nlp)
+def process(text):
+    nlp = English()
+    context = nlp_context.NlpContext()
+    verb_semantic = semantics.SemanticVerb()
+
+    players = nlp_matcher.FootballPlayerRecognizer(nlp)
     nlp.add_pipe(players, last=True)
 
-    component = VerbRecognizer(nlp, verb_semantic)
+    component = nlp_matcher.VerbRecognizer(nlp, verb_semantic)
     nlp.add_pipe(component, last=True)
 
     doc = nlp(text)
     print("Pipeline", nlp.pipe_names)  # pipeline contains component name
     print("Tokens", [t.text for t in doc])  # company names from the list are merged
-    #print("Doc has_player", doc._.has_player)  # Doc contains tech orgs
-    # print("Doc buy_player", doc._.buy_player)  # Doc contains tech orgs
 
     for token in doc:
         if token._.has_verb:

@@ -4,7 +4,7 @@ import plac
 from spacy.lang.en import English
 from spacy.matcher import PhraseMatcher
 from spacy.tokens import Doc, Span, Token
-from semantics import *
+from nl import semantics
 
 
 ##########################################################################
