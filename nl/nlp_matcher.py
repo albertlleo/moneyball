@@ -118,4 +118,46 @@ class FootballPlayerRecognizer(object):
         which is already set in the processing step."""
         return any([t._.get("has_player") for t in tokens])
 
+
+##########################################################################
+
+class PlayerAttributeRecognizer(object):
+    name = "player_attribute"  # component name, will show up in the pipeline
+
+    def __init__(self, nlp, semantic):
+
+        label = "NOUN"
+
+        elements = semantic.get_all_values()
+
+        self.label = nlp.vocab.strings[label]  # get entity label ID
+
+        patterns = [nlp(org) for org in elements]
+        self.matcher = PhraseMatcher(nlp.vocab)
+        self.matcher.add("PLAYER_ATTRIBUTE", None, *patterns)
+
+        Token.set_extension("has_attribute", default=False)
+
+        Doc.set_extension("has_attribute", getter=self.has_attribute)
+        Span.set_extension("has_attribute", getter=self.has_attribute)
+
+    def __call__(self, doc):
+
+        matches = self.matcher(doc)
+        spans = []  # keep the spans for later so we can merge them afterwards
+        for _, start, end in matches:
+            # Generate Span representing the entity & set label
+            entity = Span(doc, start, end, label=self.label)
+            spans.append(entity)
+            # Set custom attribute on each token of the entity
+            for token in entity:
+                token._.set("has_attribute", True)
+            doc.ents = list(doc.ents) + [entity]
+        for span in spans:
+            span.merge()
+        return doc  # don't forget to return the Doc!
+
+    def has_attribute(self, tokens):
+        return any([t._.get("has_attribute") for t in tokens])
+
 ##########################################################################

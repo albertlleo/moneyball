@@ -6,7 +6,6 @@ Author: marco_bertola
 
 
 class Semantic:
-    semantics = {}
 
     def category(self, token):
 
@@ -41,6 +40,7 @@ class Semantic:
                 if parent is not None:
                     if parent in semantic.keys():
                         semantic[parent].append(node)
+                        print(node)
                     else:
                         synonymous = [node]
                         semantic[parent] = synonymous
@@ -50,6 +50,14 @@ class Semantic:
 
 
 class SemanticVerb(Semantic):
+    semantics = {}
 
     def __init__(self):
         self._build_tree(open("nl/voc/verb.voc"))
+
+
+class SemanticPlayerAttribute(Semantic):
+    semantics = {}
+
+    def __init__(self):
+        self._build_tree(open("nl/voc/playerAttribute.voc"))
