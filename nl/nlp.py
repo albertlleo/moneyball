@@ -45,6 +45,10 @@ def process(text):
     matcher_attribute = nlp_matcher.PlayerAttributeRecognizer(nlp, attribute_semantic)
     nlp.add_pipe(matcher_attribute, last=True)
 
+    quantifier_semantic = semantics.SemanticAttributeQuantifier()
+    matcher_quantifier = nlp_matcher.AttributeQuantifierRecognizer(nlp, quantifier_semantic)
+    nlp.add_pipe(matcher_quantifier, last=True)
+
     doc = nlp(text)
     print("Pipeline", nlp.pipe_names)  # pipeline contains component name
     print("Tokens", [t.text for t in doc])  # company names from the list are merged
@@ -52,6 +56,7 @@ def process(text):
     for token in doc:
         matcher_verb.match(token, context, verb_semantic)
         matcher_attribute.match(token, context, attribute_semantic)
+        matcher_quantifier.match(token, context, quantifier_semantic)
 
     if DEBUG:
         debug_log(doc)

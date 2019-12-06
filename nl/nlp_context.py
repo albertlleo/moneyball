@@ -12,6 +12,9 @@ class RequestContext:
     has_attribute = False
     category_attribute = ""
 
+    has_quantifier = False
+    quantifier_attribute = ""
+
     has_player = False
     category_player = ""
 
@@ -21,6 +24,8 @@ class RequestContext:
         print("category_verb\t", self.category_verb)
         print("has_attribute\t", self.has_attribute)
         print("category_attribute\t", self.category_attribute)
+        print("has_quantifier\t", self.has_quantifier)
+        print("quantifier_attribute\t", self.quantifier_attribute)
         print("has_player\t", self.has_player)
         print("category_player\t", self.category_player)
         print("************")
