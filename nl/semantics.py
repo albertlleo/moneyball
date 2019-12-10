@@ -68,3 +68,10 @@ class SemanticAttributeQuantifier(Semantic):
 
     def __init__(self):
         self._build_tree(open("nl/voc/attributeQuantifier.voc"))
+
+
+class SemanticPlayerRole(Semantic):
+    semantics = {}
+
+    def __init__(self):
+        self._build_tree(open("nl/voc/playerRole.voc"))

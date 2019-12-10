@@ -106,3 +106,30 @@ class AttributeQuantifierRecognizer(Recognizer):
             context.quantifier_attribute = semantic.category(token)
 
 ##########################################################################
+
+
+class PlayerRoleRecognizer(Recognizer):
+    name = "NOUN_ROLE"
+    extension = "has_player_role"
+
+    def __init__(self, nlp, semantic):
+        elements = semantic.get_all_values()
+        self.label = nlp.vocab.strings[self.name]
+
+        patterns = [nlp(org) for org in elements]
+        self.matcher = PhraseMatcher(nlp.vocab)
+        self.matcher.add(self.name, None, *patterns)
+
+        Token.set_extension(self.extension, default=False)
+        Doc.set_extension(self.extension, getter=self.has_player_role)
+        Span.set_extension(self.extension, getter=self.has_player_role)
+
+    def has_player_role(self, tokens):
+        return any([t._.get(self.extension) for t in tokens])
+
+    def match(self, token, context, semantic):
+        if token._.has_player_role:
+            context.has_player_role = True
+            context.category_player_role = semantic.category(token)
+
+##########################################################################

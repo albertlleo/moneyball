@@ -18,6 +18,9 @@ class RequestContext:
     has_player = False
     category_player = ""
 
+    has_player_role = False
+    category_player_role = ""
+
     def trace(self):
         print("\n******CONTEXT******")
         print("has_verb\t", self.has_verb)
@@ -28,4 +31,6 @@ class RequestContext:
         print("quantifier_attribute\t", self.quantifier_attribute)
         print("has_player\t", self.has_player)
         print("category_player\t", self.category_player)
+        print("has_player_role\t", self.has_player_role)
+        print("category_player_role\t", self.category_player_role)
         print("************")
