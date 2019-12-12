@@ -9,6 +9,7 @@ from spacy.lang.en import English
 from nl import nlp_matcher
 from nl import semantics
 from nl import nlp_context
+import os
 
 DEBUG = True
 
@@ -62,10 +63,8 @@ def process(text):
         matcher_attribute.match(token, context, attribute_semantic)
         matcher_quantifier.match(token, context, quantifier_semantic)
         matcher_player_role.match(token, context, player_role_semantic)
-
     if DEBUG:
         debug_log(doc)
-        #context.trace()
 
     return context
 

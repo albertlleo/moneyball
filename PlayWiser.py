@@ -1,69 +1,56 @@
-#!/usr/bin/python
-"""
-Created on Thu Oct 283 20:23:46 2019
-
-@author: Albert Lleo, Hamit, ...
-"""
+from nl import nlp
+import pandas as pd
+import random
 
 
-# Playwiser
-
-#We need to create a script-dialoge? or just with an example written we are done?
-
-import sys
-
-#def selection(answer1):
-    
-
-def search():
-	position = input("Alriht. Let's start defining the first position player you want. Is it DFC, MC or DL:  ") #guys its just supercoding, we need to define evttng and correct syntax lol
-	if position == "DFC":
-		char =  input("Alright, you need a " + position + "with more speed or with more strength?")
-		print("...")
-
-	elif position == "MC":
-		char =  input("Alright, you need a " + position + " with more speed. with more strength or vision?")
-		print("...")
-        
-	elif position == "DL":
-		char =  input("Alright, you need a " + position + " with more speed, with more strength or more precision?")
-		print("...")
-    
-#    else:
-#        print("Please choose a correct POS")
-#        search()
-        
+query_intent = {'buy_type': '', 'attribute': [], 'quantifier': '', 'player_role':[]}
 
 
-def printPlayer(x):
-
-	#print players vector, array, list.... idk
-	print("the caractheristics of" + player + "are ......") #printPLayer(player)
-#    return(player)
-    
-    
-print('Hi, wellcome to Playwiser! My name is Sussan and I will become your personal assistant on this search.')
-name = input("What's your name? ")
-print("Nice to meet you coach " + name + "!")
-answer1= input("Are you here to search for a player (search) or just to ask some habilities (habilities) of a player?")
+def greeting():
+	print("Hi, My name is Susan and I am the best transfer market bot available")
+	name = input("What's your name, Coach?\n")
+	print(f"Nice to meet you Coach,{name}. How can I help you?")
+	query = input()
+	return query
 
 
-try:
-#we should put all this in a function up there and here jsut put selection(answer1) and/or try this of try and except, im starting on python sorry guys
-    if answer1 == "search":
-    	search()
-        
-    elif answer1 == "habilities":
-    	player = input("Tell us the player you want to obtain features: ")
-    	printPlayer(player)
-    
-    else:
-        print("please enter a valid answer")
+def dialogue():
+	global query_intent
+	print("intent1", query_intent)
+	dialogues = pd.read_csv('dialogue.csv')
+	# If buy type is not specified , i.e., we don't know if he wants to buy or rent
+	if (query_intent['buy_type'] == 'find') | (query_intent['buy_type'] == ''):
+		row = dialogues[dialogues.buy_type == 0]
+		# Picks a random dialogue from the same type of attributes
+		row = row.iloc[random.randint(0, row.shape[0] - 1)]
+		user_dialogue = input(row.dialogue)
+		# process new tokens
+		buy_type, attribute, quantifier, player_role = nlp.process(user_dialogue)
+		populate_intent(buy_type=buy_type, attribute=attribute, quantifier=quantifier, player_role=player_role)
+	print("intent2", query_intent)
+	if query_intent['buy_type'] == 'buy':
+		row = dialogues[dialogues.buy_type == 1]
+		# pick a random question to ask
+		row = row.iloc[random.randint(0, row.shape[0] - 1)]
+		user_dialogue = input(row.dialogue)
+	print("intent3", query_intent)
 
-except KeyboardInterrupt:
-    print('You cancelled the operation.')
 
-except:
-    print('An error occured.')
+def populate_intent(buy_type='', attribute='', quantifier='', player_role=''):
+	global query_intent
+	query_intent['buy_type'] = buy_type
+	query_intent['quantifier'] = quantifier
+	query_intent['attribute'].append(attribute)
+	query_intent['player_role'].append(player_role)
 
 
+def main():
+
+	query = greeting()
+	buy_type, attribute, quantifier, player_role = nlp.process(query)
+	populate_intent(buy_type=buy_type, attribute=attribute, quantifier=quantifier, player_role=player_role)
+	dialogue()
+
+
+if __name__ == '__main__':
+	main()

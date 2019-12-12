@@ -1,10 +1,17 @@
-striker
-	striker
-	forward
-midfielder
-	midfielder
 defender
 	defender
+	RWB
+    RB
+    CB
+    LB
+    LWB
+
+midfielder
+	midfielder
+forward
+	striker
+	forward
 goalkeeper
 	goalkeeper
 	goalie
+    keeper

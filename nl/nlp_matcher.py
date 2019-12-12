@@ -39,9 +39,9 @@ class VerbRecognizer(Recognizer):
         self.matcher = PhraseMatcher(nlp.vocab)
         self.matcher.add(self.name, None, *patterns)
 
-        Token.set_extension(self.extension, default=False)
-        Doc.set_extension(self.extension, getter=self.has_verb)
-        Span.set_extension(self.extension, getter=self.has_verb)
+        Token.set_extension(self.extension, default=False, force=True)
+        Doc.set_extension(self.extension, getter=self.has_verb, force=True)
+        Span.set_extension(self.extension, getter=self.has_verb, force=True)
 
     def has_verb(self, tokens):
         return any([t._.get(self.extension) for t in tokens])
@@ -66,9 +66,9 @@ class PlayerAttributeRecognizer(Recognizer):
         self.matcher = PhraseMatcher(nlp.vocab)
         self.matcher.add(self.name, None, *patterns)
 
-        Token.set_extension(self.extension, default=False)
-        Doc.set_extension(self.extension, getter=self.has_attribute)
-        Span.set_extension(self.extension, getter=self.has_attribute)
+        Token.set_extension(self.extension, default=False, force=True)
+        Doc.set_extension(self.extension, getter=self.has_attribute, force=True)
+        Span.set_extension(self.extension, getter=self.has_attribute,force=True)
 
     def has_attribute(self, tokens):
         return any([t._.get(self.extension) for t in tokens])
@@ -93,9 +93,9 @@ class AttributeQuantifierRecognizer(Recognizer):
         self.matcher = PhraseMatcher(nlp.vocab)
         self.matcher.add(self.name, None, *patterns)
 
-        Token.set_extension(self.extension, default=False)
-        Doc.set_extension(self.extension, getter=self.has_quantifier)
-        Span.set_extension(self.extension, getter=self.has_quantifier)
+        Token.set_extension(self.extension, default=False, force=True)
+        Doc.set_extension(self.extension, getter=self.has_quantifier, force=True)
+        Span.set_extension(self.extension, getter=self.has_quantifier, force=True)
 
     def has_quantifier(self, tokens):
         return any([t._.get(self.extension) for t in tokens])
@@ -120,9 +120,9 @@ class PlayerRoleRecognizer(Recognizer):
         self.matcher = PhraseMatcher(nlp.vocab)
         self.matcher.add(self.name, None, *patterns)
 
-        Token.set_extension(self.extension, default=False)
-        Doc.set_extension(self.extension, getter=self.has_player_role)
-        Span.set_extension(self.extension, getter=self.has_player_role)
+        Token.set_extension(self.extension, default=False, force= True)
+        Doc.set_extension(self.extension, getter=self.has_player_role, force=True)
+        Span.set_extension(self.extension, getter=self.has_player_role, force=True)
 
     def has_player_role(self, tokens):
         return any([t._.get(self.extension) for t in tokens])
