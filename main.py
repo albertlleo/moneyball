@@ -6,6 +6,7 @@ from tts import tts
 import argparse
 import spacy
 from nl import nlp
+from logic import *
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx
@@ -27,7 +28,8 @@ def main():
     # if input_text:
     #    tts.processTextToSpeech(input_text)
 
-    nlp.process(input_text)
+    context = nlp.process(input_text)
+    process_logic(context)
 
 
 if __name__ == "__main__":

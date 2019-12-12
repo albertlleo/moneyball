@@ -65,7 +65,9 @@ def process(text):
 
     if DEBUG:
         debug_log(doc)
-        context.trace()
+        #context.trace()
+
+    return context
 
 
 if __name__ == "__main__":
