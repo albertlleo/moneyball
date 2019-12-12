@@ -1,69 +1,47 @@
-#!/usr/bin/python
-"""
-Created on Thu Oct 283 20:23:46 2019
-
-@author: Albert Lleo, Hamit, ...
-"""
+from nl import nlp
+import pandas as pd
 
 
-# Playwiser
-
-#We need to create a script-dialoge? or just with an example written we are done?
-
-import sys
-
-#def selection(answer1):
-    
-
-def search():
-	position = input("Alriht. Let's start defining the first position player you want. Is it DFC, MC or DL:  ") #guys its just supercoding, we need to define evttng and correct syntax lol
-	if position == "DFC":
-		char =  input("Alright, you need a " + position + "with more speed or with more strength?")
-		print("...")
-
-	elif position == "MC":
-		char =  input("Alright, you need a " + position + " with more speed. with more strength or vision?")
-		print("...")
-        
-	elif position == "DL":
-		char =  input("Alright, you need a " + position + " with more speed, with more strength or more precision?")
-		print("...")
-    
-#    else:
-#        print("Please choose a correct POS")
-#        search()
-        
+def greeting():
+	print("Hi, My name is Susan and I am the best transfer market bot available")
+	name = input("What's your name, Coach?\n")
+	print(f"Nice to meet you Coach,{name}. How can I help you?")
 
 
-def printPlayer(x):
-
-	#print players vector, array, list.... idk
-	print("the caractheristics of" + player + "are ......") #printPLayer(player)
-#    return(player)
-    
-    
-print('Hi, wellcome to Playwiser! My name is Sussan and I will become your personal assistant on this search.')
-name = input("What's your name? ")
-print("Nice to meet you coach " + name + "!")
-answer1= input("Are you here to search for a player (search) or just to ask some habilities (habilities) of a player?")
+def dialogue(query_intent):
+	dialogues = pd.read_csv('dialogue.csv')
+	row = dialogues[dialogues.buy_type == 0]
+	dialogue_user = row.dialogue
+	print(dialogue_user)
 
 
-try:
-#we should put all this in a function up there and here jsut put selection(answer1) and/or try this of try and except, im starting on python sorry guys
-    if answer1 == "search":
-    	search()
-        
-    elif answer1 == "habilities":
-    	player = input("Tell us the player you want to obtain features: ")
-    	printPlayer(player)
-    
-    else:
-        print("please enter a valid answer")
+def talk(query_intent):
 
-except KeyboardInterrupt:
-    print('You cancelled the operation.')
-
-except:
-    print('An error occured.')
+	if query_intent['buy_type'] == 'find':
+		query_intent['buy_type'] = input("Are you looking to buy or rent a player?")
+	if query_intent['player_role'] == ['']:
+		query_intent['player_role'] = input("What position are you looking for?")
 
 
+def connect_nlp():
+	query = input()
+	return nlp.process(query)
+
+
+def populate_intent(verb='find', attribute='', quantifier='', player_role=''):
+	query_intent = {'buy_type': verb, 'attribute': [], 'quantifier': quantifier, 'player_role': []}
+	query_intent[attribute] = query_intent['attribute'].append(attribute)
+	query_intent[player_role] = query_intent['player_role'].append(attribute)
+	return query_intent
+
+
+def main():
+	greeting()
+	verb, attribute, quantifier, player_role = connect_nlp()
+	query_intent = populate_intent(verb=verb, attribute=attribute, quantifier=quantifier, player_role=player_role)
+	#talk(query_intent=query_intent)
+	dialogue(query_intent)
+
+
+if __name__ == '__main__':
+	main()

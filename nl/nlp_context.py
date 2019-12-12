@@ -34,3 +34,4 @@ class RequestContext:
         print("has_player_role\t", self.has_player_role)
         print("category_player_role\t", self.category_player_role)
         print("************")
+        return self.category_verb, self.category_attribute, self.category_player, self.category_player_role
