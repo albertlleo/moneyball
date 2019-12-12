@@ -1,7 +1,8 @@
 ﻿buy_type,attribute,quantifier,player_role,player_role_specific,dialogue
-0,0,0,0,0,Are you looking to buy or rent?
-1,0,0,0,0,What position are you looking for?
+0,0,0,0,0,Are you looking to buy or rent a player?
+0,0,0,0,0,Do you want to purchase or rent the player?
+0,0,0,0,0,Are you looking to buy a player?
 1,0,0,0,0,What position are you looking for?
 1,0,0,1,0,Are you looking for a specific position?
-1,0,0,1,1,I have some {pos_role_specific} for you. Are you looking for any attribute?
+1,0,0,1,1,I have some {pos_role_specific} players for you. Are you looking for any attribute?
 1,1,0,0,0,I see. What position will he play in?
