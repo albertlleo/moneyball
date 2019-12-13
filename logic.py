@@ -10,6 +10,7 @@ from nl import nlp
 
 def process_logic(context):
     do_logic(context)
+    return context
 
 def saySomething(text):
     print(text)
@@ -76,6 +77,7 @@ def do_logic(context):
                             print("Counter is:",counter)
                             counter+=1
 
+
                     if context.has_attribute is False:
                             # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
                             context.category_attribute = input("Nice, let's move on. What attribute would like to have your player (speed etc)?") #pick up random sentences from a database
@@ -112,5 +114,10 @@ def do_logic(context):
         else:
             print("define a verb")
             do_logic(context)
+
+
+
+
+        print(context.request_is_still_active)
         context.request_is_still_active=False
         return context

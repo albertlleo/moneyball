@@ -21,6 +21,7 @@ def main():
 
     context = nlp_context.RequestContext()
     while context.request_is_still_active:
+
         input_text = ""
         if args.asr:
             input_text = asr.processASR(ASR_MODE)
@@ -29,6 +30,11 @@ def main():
 
         context = nlp.process(input_text, context)
         context=process_logic(context)
+        context.trace()
+        #query to the database of Hamit and retrieve a list with the attributes of context obecjt
+        #print list and thanks blabla
+        #we need more layers to improve the dialoge make it more real
+
 
     # if input_text:
     #    tts.processTextToSpeech(input_text)
