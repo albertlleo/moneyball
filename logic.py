@@ -17,133 +17,100 @@ def saySomething(text):
 
 def do_logic(context):
     counter = 0
-    budget = 0
-    intent = "buy"
-    position = ""
-    feature = ""
-    duration = ""
-    cost = 0
-    end = "False"
+    # budget = 0
+    # intent = "buy"
+    # position = ""
+    # feature = ""
+    # duration = ""
+    # cost = 0
 
-
+    print("initial counter:",counter)
     #Check if the user input say us any information of it
-    if budget!=0:
+    if context.has_verb is True:
+        print("counter for verb is +1")
         counter+=1
-    if position!="":
+    if context.has_attribute is True:
+        print("counter for attribute is +1")
+
         counter+=1
-    if feature!="":
+    if context.has_quantifier is True:
+        print("counter for quantifier is +1")
+
+        counter+=1
+    if context.has_player is True:
+        print("counter for player name is +1")
+
+        counter+=1
+    if context.has_player_role is True:
+        print("counter for role is +1")
+
+        counter+=1
+    if context.has_budget is True:
+        print("counter for budget is +1")
+
         counter+=1
 
-    while end is not "True":
+    print("counter after first check:",counter)
+    context.trace()
+
+    while context.request_is_still_active is True:
     # If intent is general, actualize the input to an specific one
-        if intent is "general":
-            saySomething("Great!  You prefer to buy or to rent a player?")
-            intent=input()
-
-        if intent is "buy":
-            connection = sqlite3.connect("players.db")
-            cursor = connection.cursor()
-
-            while(counter!=3):
-
-                if budget==0:
-                    print("(random output from our database on this side asking the budget. Okey, what's your budget?")
-                    budget = float(input())
-                    cursor.execute("SELECT DISTINCT Value FROM players WHERE Value<budget")
-                    print("For this budget, you have this players.:")
-                    result = cursor.fetchall()
-                    for r in result:
-                        print(r)
-
-                    counter+=1
-
-                if position == "":
-                    print("(random output from our database on this side asking the position. Nice, what's your position? Just to clarify my research")
-                    position = input()
-                    cursor.execute("SELECT DISTINCT Position FROM players WHERE Position=position ")
-                    print("For this Position, you have this players.:")
-                    result = cursor.fetchall()
-                    for r in result:
-                        print(r)
-                    counter+=1
-
-                if feature == "":
-                    print("(random output from our database on this side asking the position. Fine! what's your best feature to have? Just to clarify my research")
-                    position = input()
-                    cursor.execute("SELECT DISTINCT Feature FROM players WHERE Feature=feature ")
-                    print("For this Position, you have this players.:")
-                    result = cursor.fetchall()
-                    for r in result:
-                        print(r)
-                    counter += 1
-
-            print("My results with those specifications are:")
-            cursor.execute("SELECT all FROM players WHERE Budget<budget and Position=position and Feature=feature ")
-            print("For this data, you have this players.:")
-            players = cursor.fetchall()
-            for r in players:
-                print(r)
-
-            cursor.close()
-            connection.close()
-            end="True"
+        if context.has_verb is True:
+            if context.category_verb == "find" or context.category_verb == "buy":
+                saySomething("Great! Let's move on to find a perfect player for you coach.")
 
 
-        if intent is "rent":
-            connection = sqlite3.connect("players.db")
-            cursor = connection.cursor()
 
-            while (counter != 4):
-                if budget==0:
-                    print("(random output from our database on this side asking the budget. Okey, what's your budget?")
-                    budget = float(input())
-                    cursor.execute("SELECT DISTINCT Value FROM players WHERE Value<budget")
-                    print("For this budget, you have this players.:")
-                    result = cursor.fetchall()
-                    for r in result:
-                        print(r)
+                while(counter!=5):
 
-                    counter+=1
+                    if context.has_player is True:
+                        print("Ok, lets find the price for ",context.category_player)
+                        #retrieve price and all from player context.category_player
+                        counter=5
 
-                if duration == "":
-                    print("(random output from our database on this side asking the position. Nice, what's the duration? Just to clarify my research")
-                    duration = input()
-                    counter+=1
+                    if context.has_budget is False:
+                            # input_text = input("random output from our database on this side asking the budget. Okey, what's your budget?:")
+                            context.budget_amount = input("random output from our database on this side asking the budget. Okey, what's your budget?")#nlp.process(input_text, context)
+                            context.has_budget=True
+                            context.trace()
+                            print("Counter is:",counter)
+                            counter+=1
+
+                    if context.has_attribute is False:
+                            # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
+                            context.category_attribute = input("Nice, let's move on. What attribute would like to have your player (speed etc)?") #pick up random sentences from a database
+                            context.has_attribute=True
+                            context.trace()
+
+                            counter+=1
+
+                    if context.has_quantifier is False:
+                        # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
+                        context.quantifier_attribute = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")  # pick up random sentences from a database
+                        context.has_quantifier = True
+                        context.trace()
+
+                        counter += 1
+
+                    if context.has_player_role is False:
+                        # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
+                        context.category_player_role = input("Nice, let's move on. What role would like to have your player? striker, defender, medium...")  # pick up random sentences from a database
+                        context.has_player_role = True
+                        context.trace()
+
+                        counter += 1
+
+                    print("Final counter;", counter)
 
 
-                if position == "":
-                    print("(random output from our database on this side asking the position. Nice, what's your position? Just to clarify my research")
-                    position = input()
-                    cursor.execute("SELECT DISTINCT Position FROM players WHERE Position=position ")
-                    print("For this Position, you have this players.:")
-                    result = cursor.fetchall()
-                    for r in result:
-                        print(r)
-                    counter+=1
 
 
-                if feature == "":
-                    print(
-                        "(random output from our database on this side asking the position. Fine! what's your best feature to have? Just to clarify my research")
-                    position = input()
-                    cursor.execute("SELECT DISTINCT Feature FROM players WHERE Feature=feature ")
-                    print("For this Position, you have this players.:")
-                    result = cursor.fetchall()
-                    for r in result:
-                        print(r)
-                    counter += 1
+            else:
+                saySomething("plis at first do only find or buy, later we will add more actions.")
+                do_logic(context)
 
-            cursor.execute("SELECT DISTINCT Cost FROM players WHERE Budget<budget and Position=position and Feature=feature ")
-
-            # and duration???
-
-            print("For this data, you have this players.:")
-            players = cursor.fetchall()
-
-            for r in players:
-                print(r)
-
-            cursor.close()
-            connection.close()
-            intent=="end"
-
+        else:
+            print("define a verb")
+            do_logic(context)
+        context.request_is_still_active=False
+        return context
