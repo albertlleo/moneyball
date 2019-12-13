@@ -14,6 +14,7 @@ from nl import nlp_context
 # 2 == Google Speech Recognition
 # ASR_MODE = 0
 
+
 def main():
     parser = argparse.ArgumentParser(description='Assistant parameters')
     parser.add_argument('--asr', action='store_true')
@@ -29,7 +30,7 @@ def main():
             input_text = input("ask:")
 
         context = nlp.process(input_text, context)
-        context=process_logic(context)
+        context = process_logic(context)
         context.trace()
         #query to the database of Hamit and retrieve a list with the attributes of context obecjt
         #print list and thanks blabla

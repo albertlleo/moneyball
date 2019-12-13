@@ -1,8 +1,16 @@
-﻿buy_type,attribute,quantifier,player_role,player_role_specific,dialogue
-0,0,0,0,0,Are you looking to buy or rent a player?
-0,0,0,0,0,Do you want to purchase or rent the player?
-0,0,0,0,0,Are you looking to buy a player?
-1,0,0,0,0,What position are you looking for?
-1,0,0,1,0,Are you looking for a specific position?
-1,0,0,1,1,I have some {pos_role_specific} players for you. Are you looking for any attribute?
-1,1,0,0,0,I see. What position will he play in?
+﻿has_verb,has_player,has_budget,has_attribute,has_quantifier,has_player_role,dialogue
+0,0,0,0,0,0,Are you looking to buy or rent a player?
+0,0,0,0,0,0,Do you want to purchase or rent the player?
+0,0,0,0,0,0,Are you looking to buy a player?
+1,0,0,0,0,0,Do you have a budget in mind?
+1,0,0,0,0,0,"How much money do you have richie, rich?"
+1,0,1,0,0,0,"Do you want your player to be strong ,fast. You have to tell me else I will give you a weak slow costly player."
+1,0,1,0,0,0,Do you have any specific attribute in mind?
+1,0,1,0,0,0,Do you want a fast or a strong player?
+1,0,1,1,0,0,Should I look for best of the best or average players will do as well?
+1,0,1,1,0,0,Do you want the best in the business or are you poor?
+1,0,1,1,1,0,What position are you looking for?
+1,0,1,1,1,0,Are you looking for a specific position?
+1,0,1,1,1,0,"Finally, are you looking for a defender,midfielder or a Striker?"
+1,0,1,1,1,0,I see. What position will he play in?
+1,0,1,1,1,1,

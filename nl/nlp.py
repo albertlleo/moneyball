@@ -64,7 +64,7 @@ def process(text, context):
         matcher_player_role.match(token, context, player_role_semantic)
     if DEBUG:
         debug_log(doc)
-
+    print("nlp", context)
     return context
 
 

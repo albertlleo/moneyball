@@ -50,8 +50,8 @@ def main():
 
 	query = greeting()
 	request_context = nlp_context.RequestContext()
-	request_context= nlp.process(query,request_context)
-	buy_type_2 = nlp_context.RequestContext.category_verb
+	request_context = nlp.process(query, request_context)
+	buy_type_2 = request_context.category_verb
 	print("Hi", buy_type_2)
 	attribute_2 = request_context.category_attribute
 	print("Hi", attribute_2)
