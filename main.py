@@ -12,8 +12,7 @@ from nl import nlp_context
 # 0 == Google Cloud Speech
 # 1 == Sphinx
 # 2 == Google Speech Recognition
-ASR_MODE = 0
-
+# ASR_MODE = 0
 
 def main():
     parser = argparse.ArgumentParser(description='Assistant parameters')
@@ -29,8 +28,7 @@ def main():
             input_text = input("ask:")
 
         context = nlp.process(input_text, context)
-        # process_logic(context)
-        context.trace()
+        context=process_logic(context)
 
     # if input_text:
     #    tts.processTextToSpeech(input_text)
