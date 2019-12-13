@@ -6,6 +6,9 @@ Author: marco_bertola
 
 
 class RequestContext:
+
+    request_is_still_active = True
+
     has_verb = False
     category_verb = ""
 
@@ -21,6 +24,9 @@ class RequestContext:
     has_player_role = False
     category_player_role = ""
 
+    has_budget = False
+    budget_amount = 0
+
     def trace(self):
         print("\n******CONTEXT******")
         print("has_verb\t", self.has_verb)
@@ -33,5 +39,7 @@ class RequestContext:
         print("category_player\t", self.category_player)
         print("has_player_role\t", self.has_player_role)
         print("category_player_role\t", self.category_player_role)
+        print("has_budget\t", self.has_budget)
+        print("budget_amount\t", self.budget_amount)
         print("************")
-        return self.category_verb, self.category_attribute, self.category_player, self.category_player_role
+
