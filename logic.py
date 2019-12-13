@@ -9,7 +9,6 @@ from nl import nlp
 
 
 def process_logic(context):
-    context.trace()
     do_logic(context)
 
 def saySomething(text):

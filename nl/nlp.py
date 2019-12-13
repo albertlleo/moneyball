@@ -8,7 +8,7 @@ import plac
 from spacy.lang.en import English
 from nl import nlp_matcher
 from nl import semantics
-from nl import nlp_context
+
 import os
 
 DEBUG = True
@@ -34,9 +34,8 @@ def main():
     process(text)
 
 
-def process(text):
+def process(text, context):
     nlp = English()
-    context = nlp_context.RequestContext()
 
     verb_semantic = semantics.SemanticVerb()
     matcher_verb = nlp_matcher.VerbRecognizer(nlp, verb_semantic)

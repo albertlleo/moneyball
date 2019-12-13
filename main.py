@@ -7,6 +7,7 @@ import argparse
 import spacy
 from nl import nlp
 from logic import *
+from nl import nlp_context
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx
@@ -19,17 +20,22 @@ def main():
     parser.add_argument('--asr', action='store_true')
     args = parser.parse_args()
 
-    input_text = ""
-    if args.asr:
-        input_text = asr.processASR(ASR_MODE)
-    else:
-        input_text = input("ask:")
+    context = nlp_context.RequestContext()
+    while context.request_is_still_active:
+        input_text = ""
+        if args.asr:
+            input_text = asr.processASR(ASR_MODE)
+        else:
+            input_text = input("ask:")
+
+        context = nlp.process(input_text, context)
+        # process_logic(context)
+        context.trace()
 
     # if input_text:
     #    tts.processTextToSpeech(input_text)
 
-    context = nlp.process(input_text)
-    process_logic(context)
+
 
 
 if __name__ == "__main__":
