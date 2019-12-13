@@ -1,9 +1,10 @@
 from nl import nlp
 import pandas as pd
 import random
+from nl import nlp_context
 
 
-query_intent = {'buy_type': '', 'attribute': [], 'quantifier': '', 'player_role':[]}
+query_intent = {'buy_type': '', 'attribute': [], 'quantifier': '', 'player_role': []}
 
 
 def greeting():
@@ -38,6 +39,7 @@ def dialogue():
 
 def populate_intent(buy_type='', attribute='', quantifier='', player_role=''):
 	global query_intent
+	print("Inside populate", buy_type, attribute, quantifier, player_role)
 	query_intent['buy_type'] = buy_type
 	query_intent['quantifier'] = quantifier
 	query_intent['attribute'].append(attribute)
@@ -47,9 +49,15 @@ def populate_intent(buy_type='', attribute='', quantifier='', player_role=''):
 def main():
 
 	query = greeting()
-	buy_type, attribute, quantifier, player_role = nlp.process(query)
-	populate_intent(buy_type=buy_type, attribute=attribute, quantifier=quantifier, player_role=player_role)
-	dialogue()
+	request_context = nlp_context.RequestContext()
+	request_context= nlp.process(query,request_context)
+	buy_type_2 = nlp_context.RequestContext.category_verb
+	print("Hi", buy_type_2)
+	attribute_2 = request_context.category_attribute
+	print("Hi", attribute_2)
+	#print("h main", buy_type, attribute, quantifier, player_role)
+	#populate_intent(buy_type=buy_type, attribute=attribute, quantifier=quantifier, player_role=player_role)
+	#dialogue()
 
 
 if __name__ == '__main__':
