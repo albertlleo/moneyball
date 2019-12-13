@@ -71,6 +71,8 @@ def do_logic(context):
 
                     if context.has_budget is False:
                             # input_text = input("random output from our database on this side asking the budget. Okey, what's your budget?:")
+
+                          # make numbers understandable and then change
                             context.budget_amount = input("random output from our database on this side asking the budget. Okey, what's your budget?")#nlp.process(input_text, context)
                             context.has_budget=True
                             context.trace()
@@ -79,16 +81,17 @@ def do_logic(context):
 
 
                     if context.has_attribute is False:
-                            # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                            context.category_attribute = input("Nice, let's move on. What attribute would like to have your player (speed etc)?") #pick up random sentences from a database
-                            context.has_attribute=True
-                            context.trace()
-
-                            counter+=1
+                        input_text = input("Nice, let's move on. What attribute would like to have your player (speed etc)?")
+                        context = nlp.process(input_text, context)
+                        context.has_attribute = True
+                        context.trace()
+                        counter += 1
 
                     if context.has_quantifier is False:
                         # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                        context.quantifier_attribute = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")  # pick up random sentences from a database
+                        # context.quantifier_attribute = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")  # pick up random sentences from a database
+                        input_text = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")
+                        context = nlp.process(input_text, context)
                         context.has_quantifier = True
                         context.trace()
 
@@ -96,7 +99,9 @@ def do_logic(context):
 
                     if context.has_player_role is False:
                         # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                        context.category_player_role = input("Nice, let's move on. What role would like to have your player? striker, defender, medium...")  # pick up random sentences from a database
+                        # context.category_player_role = input("Nice, let's move on. What role would like to have your player? striker, defender, medium...")  # pick up random sentences from a database
+                        input_text = input("Nice, let's move on. What role would like to have your player? striker, defender, medium")
+                        context = nlp.process(input_text, context)
                         context.has_player_role = True
                         context.trace()
 
@@ -118,6 +123,7 @@ def do_logic(context):
 
 
 
-        print(context.request_is_still_active)
+
+
         context.request_is_still_active=False
         return context
