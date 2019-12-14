@@ -1,5 +1,6 @@
 
 from tts import tts
+import random
 
 ID_HELLO_WORLD = 1
 ID_EXAMPLE_WITH_PARAMETERS = 2
@@ -47,6 +48,10 @@ class DialogManager:
         if dial_id == ID_ASK_QUANTIFIER:
             self.text = "Ok, tell me some quantifiers about the {0} for that {1}".format(list_parameters[0], list_parameters[1])
         if dial_id == ID_FIND_REQUEST_IS_READY:
-            self.text = "Ok, I will start searching for a {0} with a {1} {2}".format(list_parameters[0], list_parameters[1], list_parameters[2])
+            case = random.randint(0, 2)
+            if 0 == case:
+                self.text = "Ok, I will start searching for a {0} with a {1} {2}".format(list_parameters[0], list_parameters[1], list_parameters[2])
+            elif 1 == case:
+                self.text = "Ok, I search for a {1} {2} {0}".format(list_parameters[0], list_parameters[1], list_parameters[2])
 
         self.saySomething()
