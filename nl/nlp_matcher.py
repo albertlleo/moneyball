@@ -50,6 +50,7 @@ class VerbRecognizer(Recognizer):
         if token._.has_verb:
             context.has_verb = True
             context.category_verb = semantic.category(token)
+        return token._.has_verb
 
 
 ##########################################################################
@@ -77,6 +78,7 @@ class PlayerAttributeRecognizer(Recognizer):
         if token._.has_attribute:
             context.has_attribute = True
             context.category_attribute = semantic.category(token)
+        return token._.has_attribute
 
 
 ##########################################################################
@@ -104,6 +106,7 @@ class AttributeQuantifierRecognizer(Recognizer):
         if token._.has_quantifier:
             context.has_quantifier = True
             context.quantifier_attribute = semantic.category(token)
+        return token._.has_quantifier
 
 ##########################################################################
 
@@ -131,6 +134,7 @@ class PlayerRoleRecognizer(Recognizer):
         if token._.has_player_role:
             context.has_player_role = True
             context.category_player_role = semantic.category(token)
+        return token._.has_player_role
 
 ##########################################################################
 
@@ -158,5 +162,6 @@ class PlayerNameRecognizer(Recognizer):
         if token._.has_player_name:
             context.has_player_name = True
             context.player_name = token
+        return token._.has_player_name
 
 ##########################################################################

@@ -3,16 +3,15 @@
 
 from asr import asr
 import argparse
-import spacy
-from nl import nlp
-from logic_3 import *
+from logic import *
 from nl import nlp_context
-from NFI import filter
+from nl.nlp import *
+#from NFI import filter
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx
 # 2 == Google Speech Recognition
-# ASR_MODE = 0
+ASR_MODE = 0
 
 
 def main():
@@ -21,6 +20,8 @@ def main():
     args = parser.parse_args()
 
     context = nlp_context.RequestContext()
+    nlp_engine = Nlp()
+
     while context.request_is_still_active:
 
         input_text = ""
@@ -29,15 +30,11 @@ def main():
         else:
             input_text = input("ask:")
 
-        context = nlp.process(input_text, context)
-        context = process_logic(context)
+        context = nlp_engine.process(input_text, context)
         context.trace()
+        context = process_logic(context)
 
-    filter(context)
-
-    # if input_text:
-    #    tts.processTextToSpeech(input_text)
-
+    #filter(context)
 
 
 if __name__ == "__main__":

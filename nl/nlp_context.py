@@ -8,6 +8,7 @@ Author: marco_bertola
 class RequestContext:
 
     request_is_still_active = True
+    request_did_success = False
 
     has_verb = False
     category_verb = ""
@@ -41,5 +42,7 @@ class RequestContext:
         print("budget_amount\t", self.budget_amount)
         print("has_player_name\t", self.has_player_name)
         print("player_name\t", self.player_name)
+        print("request_is_still_active\t", self.request_is_still_active)
+        print("request_did_success\t", self.request_did_success)
         print("************")
 

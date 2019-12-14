@@ -5,19 +5,16 @@ import pyttsx3
 import os
 
 
-def processTextToSpeech(text):
+class VoiceTTS:
 
-    if os.name == 'nt':
-        engine = pyttsx3.init("sapi5", debug=False)
-    else:
-        engine = pyttsx3.init("nsss", debug=False)
-    engine.say(text)
-    engine.runAndWait()
+    def __init__(self):
 
+        if os.name == 'nt':
+            self.engine = pyttsx3.init("sapi5", debug=False)
+        else:
+            self.engine = pyttsx3.init("nsss", debug=False)
 
-def main():
-    processTextToSpeech("test")
+    def processTextToSpeech(self, text):
 
-
-if __name__ == "__main__":
-    main()
+        self.engine.say(text)
+        self.engine.runAndWait()

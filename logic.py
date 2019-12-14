@@ -1,130 +1,119 @@
 #!/usr/bin/env python3
-
-
+from dialogs.dialogs import *
 from nl import *
-import sqlite3
 from nl import nlp
-import pandas as pd
 import random
 
 
+#################### LIST OF INTENTS ############################
+
+
+def intent_has_verb_and_player(context):
+    return context.has_verb and context.has_player_name
+
+
+def intent_no_verb(context):
+    return context.has_verb == False
+
+
+def intent_not_has_budget(context):
+    return context.has_budget == False
+
+
+def intent_has_only_verb(context):
+    return context.has_verb \
+           and not context.has_attribute \
+           and not context.has_player_role \
+           and not context.has_quantifier \
+           and not context.has_budget \
+           and not context.has_player_name
+
+
+def intent_is_ready_for_seach(context):
+    return context.has_verb \
+           and context.has_attribute \
+           and context.has_player_role \
+           and context.has_quantifier \
+           and context.has_budget \
+           and context.category_verb == "find"
+
+
+def intent_is_quit(context):
+    return context.category_verb == "quit"
+
+
+def intent_is_invalid(context):
+    return not context.request_did_success
+
+
+def intent_is_missing_role(context):
+    return context.has_player_role is False
+
+
+def intent_is_missing_attribute(context):
+    return context.has_attribute is False
+
+
+def intent_is_missing_quantifier(context):
+    return context.has_quantifier is False
+
+
+##############################################################
+
+
 def process_logic(context):
-    do_logic(context)
+    process_intents(context)
     return context
 
 
-def saySomething(text):
-    print(text)
-
-
-def do_logic(context):
-    dialogues = pd.read_csv('dialogue.csv')
-    counter = 0
-    # budget = 0
-    # intent = "buy"
-    # position = ""
-    # feature = ""
-    # duration = ""
-    # cost = 0
-
-    print("initial counter:", counter)
-    # Check if the user input say us any information of it
-    if context.has_verb is True:
-        print("counter for verb is +1")
-        counter += 1
-    if context.has_attribute is True:
-        print("counter for attribute is +1")
-
-        counter += 1
-    if context.has_quantifier is True:
-        print("counter for quantifier is +1")
-
-        counter += 1
-    if context.has_player is True:
-        print("counter for player name is +1")
-
-        counter += 1
-    if context.has_player_role is True:
-        print("counter for role is +1")
-
-        counter += 1
-    if context.has_budget is True:
-        print("counter for budget is +1")
-
-        counter += 1
-
-    print("counter after first check:", counter)
+def process_intents(context):
     context.trace()
 
-    while context.request_is_still_active is True:
-        # If intent is general, actualize the input to an specific one
-        if context.has_verb is True:
-            if context.category_verb == "find" or context.category_verb == "buy":
-                saySomething("")
+    dialog = DialogManager()
 
-                while counter != 5:
-
-                    if context.has_player is True:
-                        print("Ok, lets find the price for ", context.category_player)
-                        # retrieve price and all from player context.category_player
-                        counter = 5
-
-                    if context.has_budget is False:
-                        # input_text = input("random output from our database on this side asking the budget. Okey, what's your budget?:")
-                        row = dialogues[(dialogues['has_verb'] == 1) & (dialogues['has_budget'] == 0)]
-                        row = row.iloc[random.randint(0, row.shape[0] - 1)]
-                        # make numbers understandable and then change
-                        context.budget_amount = input(row.dialogue)  # nlp.process(input_text, context)
-                        context.has_budget = True
-                        context.trace()
-                        print("Counter is:", counter)
-                        counter += 1
-
-                    if context.has_attribute is False:
-                        row = dialogues[(dialogues.has_verb == 1) & (dialogues.has_budget == 1) & (dialogues.has_attribute == 0)]
-                        row = row.iloc[random.randint(0, row.shape[0] - 1)]
-                        input_text = input(row.dialogue)
-                        context = nlp.process(input_text, context)
-                        context.has_attribute = True
-                        context.trace()
-                        counter += 1
-
-                    if context.has_quantifier is False:
-                        row = dialogues[
-                            (dialogues.has_verb == 1) & (dialogues.has_budget == 1) & (dialogues.has_attribute == 1) & (dialogues.has_quantifier == 0)]
-                        row = row.iloc[random.randint(0, row.shape[0] - 1)]
-                        # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                        # context.quantifier_attribute = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")  # pick up random sentences from a database
-                        input_text = input(row.dialogue)
-                        context = nlp.process(input_text, context)
-                        context.has_quantifier = True
-                        context.trace()
-
-                        counter += 1
-
-                    if context.has_player_role is False:
-                        # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                        # context.category_player_role = input("Nice, let's move on. What role would like to have your player? striker, defender, medium...")  # pick up random sentences from a database
-                        row = dialogues[
-                            (dialogues.has_verb == 1) & (dialogues.has_budget == 1) & (dialogues.has_attribute == 1) & (
-                                        dialogues.has_quantifier == 1) & (dialogues.has_player_role == 0)]
-                        row = row.iloc[random.randint(0, row.shape[0] - 1)]
-                        input_text = input(row.dialogue)
-                        context = nlp.process(input_text, context)
-                        context.has_player_role = True
-                        context.trace()
-
-                        counter += 1
-
-                    print("Final counter;", counter)
-
-            else:
-                saySomething("plis at first do only find or buy, later we will add more actions.")
-                do_logic(context)
-
-        else:
-            print("define a verb")
-            do_logic(context)
-
+    if intent_is_quit(context):
         context.request_is_still_active = False
+        dialog.processDialog(ID_GOODBYE)
         return context
+
+    if intent_is_invalid(context):
+        dialog.processDialog(ID_INTENT_NOT_CLEAR)
+
+    if intent_no_verb(context):
+        dialog.processDialog(ID_NO_VERB)
+        return context
+
+    if intent_has_only_verb(context):
+        dialog.processDialog(ID_WELCOME)
+
+    if intent_has_verb_and_player(context):
+        dialog.processDialog(ID_FIND_HAS_PLAYER_NAME, [context.player_name])
+        return context
+
+    if intent_not_has_budget(context):
+        while intent_not_has_budget(context):
+            dialog.processDialog(ID_ASK_FOR_BUDGET)
+            budget = input()
+            if budget.isdigit():
+                dialog.processDialog(ID_THANKS)
+                context.budget_amount = budget
+                context.has_budget = True
+            else:
+                dialog.processDialog(ID_BUDGET_NOT_VALID)
+
+    if intent_is_missing_role(context):
+        dialog.processDialog(ID_ASK_PLAYER_ROLE)
+        return context
+
+    if intent_is_missing_attribute(context):
+        dialog.processDialog(ID_ASK_ATTRIBUTE, [context.category_player_role])
+        return context
+
+    if intent_is_missing_quantifier(context):
+        dialog.processDialog(ID_ASK_QUANTIFIER, [context.category_attribute, context.category_player_role])
+        return context
+
+    if intent_is_ready_for_seach(context):
+        dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute,
+                                                        context.category_attribute])
+        context.request_is_still_active = False
