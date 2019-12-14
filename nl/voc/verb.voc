@@ -12,3 +12,6 @@ get_price
 quit
 	exit
 	quit
+	stop
+	leave
+	interrupt
