@@ -60,7 +60,7 @@ def do_logic(context):
         counter+=1
 
     # print("counter after first check:",counter)
-    # context.trace()
+    context.trace()
 
     while context.request_is_still_active is True:
     # If intent is general, actualize the input to an specific one
@@ -68,14 +68,15 @@ def do_logic(context):
             if context.category_verb == "find" or context.category_verb == "buy":
                 saySomething("Great! Let's move on to find a perfect player for you coach.")
 
+                if context.has_player_name is True:
+                    print("Ok, here you have all the information for ", context.player_name)
+                    # retrieve price and all from player context.category_player
+                    counter = 5
 
 
                 while(counter!=5):
 
-                    if context.has_player_name is True:
-                        print("Ok, lets find the price for ",context.player_name)
-                        #retrieve price and all from player context.category_player
-                        counter=5
+
 
                     if context.has_budget is False:
                             # input_text = input("random output from our database on this side asking the budget. Okey, what's your budget?:")
@@ -133,7 +134,6 @@ def do_logic(context):
                                     random_counter+=1
 
 
-                    print("Final counter;", counter)
 
 
 
