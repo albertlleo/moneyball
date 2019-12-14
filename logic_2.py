@@ -12,10 +12,8 @@ def process_logic(context):
     return context
 
 
-def say_something(text):
-    print(text)
-
-
+# selects a random question. Don't bother too much with this code Just use line number 73 and 74
+# and you will get a totally random unrepeated question.
 def select_question(dialogues):
     # select rows
     rows = dialogues[(dialogues.iloc[:, 0] == 1)
@@ -50,6 +48,9 @@ def do_logic(context):
     # feature = ""
     # duration = ""
     # cost = 0
+
+    # player has replaced counter. It just represents [has_verb,has_budget, has_attribute, has_quantifier,has_player_role]
+    # used to get the random questions and check loop termination. When all values are 1 ,i.e. [1,1,1,1,1] loop will terminate.
     player = [0, 0, 0, 0, 0]
     # Check if the user input say us any information of it
     if context.has_verb is True:
@@ -67,6 +68,8 @@ def do_logic(context):
     if context.has_player_role is True:
         player[4] = 1
 
+    # all(i==1) checks whether all the values in player are equal to 1. As soon as that happens loop will terminate.
+    # It never happens, 1 problem is has_budget is always False. Just set that to true manually and try to get the code working.
     while context.request_is_still_active is True and all(i == 1 for i in player) is False:
 
         context.trace()
@@ -81,6 +84,7 @@ def do_logic(context):
     return context
 
 
+# This is the same function as main.py
 def main():
     parser = argparse.ArgumentParser(description='Assistant parameters')
     parser.add_argument('--asr', action='store_true')
@@ -97,12 +101,6 @@ def main():
         context = nlp.process(input_text, context)
         context = process_logic(context)
         context.trace()
-        # query to the database of Hamit and retrieve a list with the attributes of context obecjt
-        # print list and thanks blabla
-        # we need more layers to improve the dialoge make it more real
-
-    # if input_text:
-    #    tts.processTextToSpeech(input_text)
 
 
 if __name__ == "__main__":
