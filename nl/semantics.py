@@ -40,7 +40,6 @@ class Semantic:
                 if parent is not None:
                     if parent in semantic.keys():
                         semantic[parent].append(node)
-                        print(node)
                     else:
                         synonymous = [node]
                         semantic[parent] = synonymous
@@ -75,3 +74,10 @@ class SemanticPlayerRole(Semantic):
 
     def __init__(self):
         self._build_tree(open("nl/voc/playerRole.voc"))
+
+
+class SemanticPlayerName(Semantic):
+    semantics = {}
+
+    def __init__(self):
+        self._build_tree(open("nl/data_feed/feed_players.lst"))

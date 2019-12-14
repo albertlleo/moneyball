@@ -27,6 +27,9 @@ class RequestContext:
     has_budget = False
     budget_amount = 0
 
+    has_player_name = False
+    player_name = ""
+
     def trace(self):
         print("\n******CONTEXT******")
         print("has_verb\t", self.has_verb)
@@ -41,5 +44,7 @@ class RequestContext:
         print("category_player_role\t", self.category_player_role)
         print("has_budget\t", self.has_budget)
         print("budget_amount\t", self.budget_amount)
+        print("has_player_name\t", self.has_player_name)
+        print("player_name\t", self.player_name)
         print("************")
 

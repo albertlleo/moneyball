@@ -6,7 +6,7 @@ from tts import tts
 import argparse
 import spacy
 from nl import nlp
-from logic import *
+from logic_3 import *
 from nl import nlp_context
 
 # 0 == Google Cloud Speech

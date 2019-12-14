@@ -53,6 +53,10 @@ def process(text, context):
     matcher_player_role = nlp_matcher.PlayerRoleRecognizer(nlp, player_role_semantic)
     nlp.add_pipe(matcher_player_role, last=True)
 
+    player_name_semantic = semantics.SemanticPlayerName()
+    matcher_player_name = nlp_matcher.PlayerNameRecognizer(nlp, player_name_semantic)
+    nlp.add_pipe(matcher_player_name, last=True)
+
     doc = nlp(text)
     print("Pipeline", nlp.pipe_names)  # pipeline contains component name
     print("Tokens", [t.text for t in doc])  # company names from the list are merged
@@ -62,6 +66,7 @@ def process(text, context):
         matcher_attribute.match(token, context, attribute_semantic)
         matcher_quantifier.match(token, context, quantifier_semantic)
         matcher_player_role.match(token, context, player_role_semantic)
+        matcher_player_name.match(token, context, player_name_semantic)
     if DEBUG:
         debug_log(doc)
     print("nlp", context)

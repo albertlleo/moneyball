@@ -133,3 +133,30 @@ class PlayerRoleRecognizer(Recognizer):
             context.category_player_role = semantic.category(token)
 
 ##########################################################################
+
+
+class PlayerNameRecognizer(Recognizer):
+    name = "PLAYER_NAME"
+    extension = "has_player_name"
+
+    def __init__(self, nlp, semantic):
+        elements = semantic.get_all_values()
+        self.label = nlp.vocab.strings[self.name]
+
+        patterns = [nlp(org) for org in elements]
+        self.matcher = PhraseMatcher(nlp.vocab)
+        self.matcher.add(self.name, None, *patterns)
+
+        Token.set_extension(self.extension, default=False, force= True)
+        Doc.set_extension(self.extension, getter=self.has_player_name, force=True)
+        Span.set_extension(self.extension, getter=self.has_player_name, force=True)
+
+    def has_player_name(self, tokens):
+        return any([t._.get(self.extension) for t in tokens])
+
+    def match(self, token, context, semantic):
+        if token._.has_player_name:
+            context.has_player_name = True
+            context.player_name = token
+
+##########################################################################
