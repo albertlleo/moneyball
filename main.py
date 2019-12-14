@@ -7,6 +7,7 @@ import spacy
 from nl import nlp
 from logic_3 import *
 from nl import nlp_context
+from NFI import filter
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx
@@ -32,7 +33,7 @@ def main():
         context = process_logic(context)
         context.trace()
 
-
+    filter(context)
 
     # if input_text:
     #    tts.processTextToSpeech(input_text)
