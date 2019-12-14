@@ -9,7 +9,7 @@ df = pd.read_csv("NFIdatabase.csv",  names=['name', 'age', 'overall', 'value', '
 
 def filter(context):
     # print("fas")
-    context.has_player_name = True
+    #context.has_player_name = True
     if context.has_player_name is False:
         usr_budget = context.budget_amount
 
@@ -20,10 +20,10 @@ def filter(context):
     else:
         usr_name = context.category_player
 
-usr_attr = 'age'
-usr_quant = 'young'
-usr_role = 'striker'
-usr_budget = 1000000
+#usr_attr = 'age'
+#usr_quant = 'young'
+#usr_role = 'striker'
+#usr_budget = 1000000
 
 df_output = pd.DataFrame()
 df_output = df[(df[usr_attr] == usr_quant) & (df['position'] == usr_role)]
