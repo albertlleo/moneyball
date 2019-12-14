@@ -23,134 +23,62 @@ def say_goodbye():
     saySomething("Thanks for using playwiser, until the next time")
     return
 
+def is_only_verb(context):
+    pass
+
+def has_verb_and_player(context):
+    return context.has_verb and context.has_player_name
+def no_verb(context):
+    return context.has_verb==False
+
+def not_has_budget(context):
+    return context.has_budget==False
+def only_verb(context):
+    return context.has_verb and not context.has_attribute and not context.has_player_role and not context.has_quantifier and not context.has_player and not context.has_budget and not context.has_player_name
 
 def do_logic(context):
-    counter = 0
-    # budget = 0
-    # intent = "buy"
-    # position = ""
-    # feature = ""
-    # duration = ""
-    # cost = 0
-
-    print("initial counter:", counter)
-    # Check if the user input say us any information of it
-    if context.has_verb is True:
-        print("counter for verb is +1")
-        counter += 1
-    if context.has_attribute is True:
-        print("counter for attribute is +1")
-
-        counter += 1
-    if context.has_quantifier is True:
-        print("counter for quantifier is +1")
-
-        counter += 1
-    if context.has_player is True:
-        print("counter for player name is +1")
-
-        counter += 1
-    if context.has_player_role is True:
-        print("counter for role is +1")
-
-        counter += 1
-    if context.has_budget is True:
-        print("counter for budget is +1")
-
-        counter += 1
-
-    # print("counter after first check:",counter)
     context.trace()
 
     dialog = DialogManager()
-    dialog.processDialog(ID_HELLO_WORLD)
 
     if True:
         # If intent is general, actualize the input to an specific one
-        if context.has_verb is True:
-            if context.category_verb == "find" or context.category_verb == "buy":
-                dialog.processDialog(ID_WELCOME)
 
-                if context.has_player_name is True:
-                    print("Ok, here you have all the information for ", context.player_name)
-                    # retrieve price and all from player context.category_player
-                    counter = 5
+        if no_verb(context):
+            dialog.processDialog(ID_NO_VERB)
+            return context
 
-                while (counter != 5):
-
-                    if context.has_budget is False:
-                        # input_text = input("random output from our database on this side asking the budget. Okey, what's your budget?:")
-
-                        # make numbers understandable and then change
-                        context.budget_amount = input(
-                            "random output from our database on this side asking the budget. Okey, what's your budget?")  # nlp.process(input_text, context)
-                        context.has_budget = True
-                        context.trace()
-                        print("Counter is:", counter)
-                        counter += 1
-
-                    rand_list = [1, 2, 3]
-                    check_rand = []
-                    random_counter = 0
-
-                    while random_counter != 3:
-                        x = random.choice(rand_list)
-                        if x in check_rand:
-                            pass
-                        else:
-                            check_rand.append(x)
-
-                            if x == 1:
-                                if context.has_attribute is False:
-                                    input_text = input(
-                                        "Nice, let's move on. What attribute would like to have your player (speed etc)?")
-                                    #context = nlp.process(input_text, context)
-                                    #context.has_attribute = True
-                                    #context.trace()
-
-                                    counter += 1
-                                    random_counter += 1
-                            if x == 2:
-                                if context.has_quantifier is False:
-                                    # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                                    # context.quantifier_attribute = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")  # pick up random sentences from a database
-                                    input_text = input(
-                                        "Perfect, let's move on. You want a good or a regular player? Note that the price would change")
-                                    #context = nlp.process(input_text, context)
-                                    #context.has_quantifier = True
-                                    #context.trace()
-
-                                    counter += 1
-                                    random_counter += 1
-
-                            if x == 3:
-
-                                if context.has_player_role is False:
-                                    # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                                    # context.category_player_role = input("Nice, let's move on. What role would like to have your player? striker, defender, medium...")  # pick up random sentences from a database
-                                    input_text = input(
-                                        "Nice, let's move on. What role would like to have your player? striker, defender, medium")
-                                    #context = nlp.process(input_text, context)
-                                    #context.has_player_role = True
-                                    #context.trace()
-
-                                    counter += 1
-                                    random_counter += 1
+        if only_verb(context):
+            dialog.processDialog(ID_WELCOME)
 
 
 
+        if has_verb_and_player(context):
+            print("Ok, here you have all the information for ", context.player_name)
+            return context
 
 
 
-            else:
-                saySomething(
-                    "\n\n +++++++++   Please select a verb buy or find by now. We will add more actions in a whie   ++++++++++ \n\n")
+        if not_has_budget(context):
+            context.budget_amount=input("type the budget")
+            context.has_budget = True
+
+        if context.has_player_role is False:
+            saySomething("tell me the role")
+            return context
+
+        if context.has_attribute is False:
+            params = []
+            params.append(context.category_player_role)
+            dialog.processDialog(ID_ASK_ATTRIBUTE, params)
+            return context
 
 
-        else:
-            saySomething(
-                "\n\n +++++++++   Please select a verb buy or find by now. We will add more actions in a whie   ++++++++++ \n\n")
-            # do_logic(context)   should loop asking again. Marco needs to help on this
+        if context.has_quantifier is False:
+           saySomething("please tell me quantifier")
+           return context
 
-        context.request_is_still_active = False
-        return context
+
+        context.request_is_still_active=False
+
+

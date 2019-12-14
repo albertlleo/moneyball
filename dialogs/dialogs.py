@@ -3,6 +3,7 @@ ID_EXAMPLE_WITH_PARAMETERS = 2
 ID_WELCOME = 3
 ID_SHOW_LIST_OF_STRIKER = 4
 ID_NO_VERB = 5
+ID_ASK_ATTRIBUTE = 6
 
 
 class DialogManager:
@@ -29,5 +30,7 @@ class DialogManager:
         if dial_id == ID_NO_VERB:
             self.text = "I am sorry. I am not really understanding you. Remember that you can always ask me to find " \
                         "or buy football players "
+        if dial_id == ID_ASK_ATTRIBUTE:
+            self.text = "Please tell me the attribute for the {0} you are looking for".format(list_parameters[0])
 
         self.saySomething()
