@@ -23,18 +23,40 @@ def say_goodbye():
     saySomething("Thanks for using playwiser, until the next time")
     return
 
+
 def is_only_verb(context):
     pass
 
+
 def has_verb_and_player(context):
     return context.has_verb and context.has_player_name
+
+
 def no_verb(context):
-    return context.has_verb==False
+    return context.has_verb == False
+
 
 def not_has_budget(context):
-    return context.has_budget==False
+    return context.has_budget == False
+
+
 def only_verb(context):
-    return context.has_verb and not context.has_attribute and not context.has_player_role and not context.has_quantifier and not context.has_player and not context.has_budget and not context.has_player_name
+    return context.has_verb \
+           and not context.has_attribute \
+           and not context.has_player_role \
+           and not context.has_quantifier \
+           and not context.has_budget \
+           and not context.has_player_name
+
+
+def find_request_is_ready(context):
+    return context.has_verb \
+           and context.has_attribute \
+           and context.has_player_role \
+           and context.has_quantifier \
+           and context.has_budget \
+           and context.category_verb == "find"
+
 
 def do_logic(context):
     context.trace()
@@ -51,34 +73,28 @@ def do_logic(context):
         if only_verb(context):
             dialog.processDialog(ID_WELCOME)
 
-
-
         if has_verb_and_player(context):
-            print("Ok, here you have all the information for ", context.player_name)
+            dialog.processDialog(ID_FIND_HAS_PLAYER_NAME, [context.player_name])
             return context
 
-
-
         if not_has_budget(context):
-            context.budget_amount=input("type the budget")
+            context.budget_amount = input("Please, type your budget")
             context.has_budget = True
 
         if context.has_player_role is False:
-            saySomething("tell me the role")
+            dialog.processDialog(ID_ASK_PLAYER_ROLE)
             return context
 
         if context.has_attribute is False:
-            params = []
-            params.append(context.category_player_role)
-            dialog.processDialog(ID_ASK_ATTRIBUTE, params)
+            dialog.processDialog(ID_ASK_ATTRIBUTE, [context.category_player_role])
             return context
 
-
         if context.has_quantifier is False:
-           saySomething("please tell me quantifier")
-           return context
+            dialog.processDialog(ID_ASK_QUANTIFIER, [context.category_attribute, context.category_player_role])
+            return context
 
-
-        context.request_is_still_active=False
+        if find_request_is_ready(context):
+            dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute, context.category_attribute])
+            context.request_is_still_active = False
 
 
