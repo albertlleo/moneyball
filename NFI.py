@@ -12,7 +12,7 @@ my_data = pd.read_csv("data.csv", delimiter=",")
 
 # In[353]:
 
-
+#aasfasfa
 my_data.columns[:]
 
 
