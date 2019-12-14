@@ -69,7 +69,7 @@ def do_logic(context):
                 saySomething("Great! Let's move on to find a perfect player for you coach.")
 
                 if context.has_player_name is True:
-                    print("Ok, lets find the price for ", context.player_name)
+                    print("Ok, here you have all the information for ", context.player_name)
                     # retrieve price and all from player context.category_player
                     counter = 5
 
@@ -134,7 +134,6 @@ def do_logic(context):
                                     random_counter+=1
 
 
-                    print("Final counter;", counter)
 
 
 
