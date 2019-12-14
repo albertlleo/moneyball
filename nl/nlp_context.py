@@ -18,9 +18,6 @@ class RequestContext:
     has_quantifier = False
     quantifier_attribute = ""
 
-    has_player = False
-    category_player = ""
-
     has_player_role = False
     category_player_role = ""
 
@@ -38,8 +35,6 @@ class RequestContext:
         print("category_attribute\t", self.category_attribute)
         print("has_quantifier\t", self.has_quantifier)
         print("quantifier_attribute\t", self.quantifier_attribute)
-        print("has_player\t", self.has_player)
-        print("category_player\t", self.category_player)
         print("has_player_role\t", self.has_player_role)
         print("category_player_role\t", self.category_player_role)
         print("has_budget\t", self.has_budget)

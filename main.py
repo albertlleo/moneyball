@@ -2,7 +2,6 @@
 
 
 from asr import asr
-from tts import tts
 import argparse
 import spacy
 from nl import nlp
@@ -32,9 +31,7 @@ def main():
         context = nlp.process(input_text, context)
         context = process_logic(context)
         context.trace()
-        #query to the database of Hamit and retrieve a list with the attributes of context obecjt
-        #print list and thanks blabla
-        #we need more layers to improve the dialoge make it more real
+
 
 
     # if input_text:
