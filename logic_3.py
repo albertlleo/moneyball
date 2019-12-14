@@ -2,8 +2,8 @@
 
 
 from nl import *
-import sqlite3
 from nl import nlp
+import random
 
 
 
@@ -14,6 +14,14 @@ def process_logic(context):
 
 def saySomething(text):
     print(text)
+
+def select_player():
+    name_player=input("Select one player of the list to be the elected:")
+    return  name_player
+
+def say_goodbye():
+    saySomething("Thanks for using playwiser, until the next time")
+    return
 
 
 def do_logic(context):
@@ -51,8 +59,8 @@ def do_logic(context):
 
         counter+=1
 
-    print("counter after first check:",counter)
-    context.trace()
+    # print("counter after first check:",counter)
+    # context.trace()
 
     while context.request_is_still_active is True:
     # If intent is general, actualize the input to an specific one
@@ -64,8 +72,8 @@ def do_logic(context):
 
                 while(counter!=5):
 
-                    if context.has_player is True:
-                        print("Ok, lets find the price for ",context.category_player)
+                    if context.has_player_name is True:
+                        print("Ok, lets find the price for ",context.player_name)
                         #retrieve price and all from player context.category_player
                         counter=5
 
@@ -79,33 +87,51 @@ def do_logic(context):
                             print("Counter is:",counter)
                             counter+=1
 
+                    rand_list=[1,2,3]
+                    check_rand = []
+                    random_counter=0
 
-                    if context.has_attribute is False:
-                        input_text = input("Nice, let's move on. What attribute would like to have your player (speed etc)?")
-                        context = nlp.process(input_text, context)
-                        context.has_attribute = True
-                        context.trace()
-                        counter += 1
+                    while random_counter!=3:
+                        x=random.choice(rand_list)
+                        if x in check_rand:
+                            pass
+                        else:
+                            check_rand.append(x)
 
-                    if context.has_quantifier is False:
-                        # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                        # context.quantifier_attribute = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")  # pick up random sentences from a database
-                        input_text = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")
-                        context = nlp.process(input_text, context)
-                        context.has_quantifier = True
-                        context.trace()
+                            if x == 1:
+                                if context.has_attribute is False:
+                                    input_text = input("Nice, let's move on. What attribute would like to have your player (speed etc)?")
+                                    context = nlp.process(input_text, context)
+                                    context.has_attribute = True
+                                    context.trace()
 
-                        counter += 1
+                                    counter += 1
+                                    random_counter+=1
+                            if x == 2:
+                                if context.has_quantifier is False:
+                                    # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
+                                    # context.quantifier_attribute = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")  # pick up random sentences from a database
+                                    input_text = input("Perfect, let's move on. You want a good or a regular player? Note that the price would change")
+                                    context = nlp.process(input_text, context)
+                                    context.has_quantifier = True
+                                    context.trace()
 
-                    if context.has_player_role is False:
-                        # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
-                        # context.category_player_role = input("Nice, let's move on. What role would like to have your player? striker, defender, medium...")  # pick up random sentences from a database
-                        input_text = input("Nice, let's move on. What role would like to have your player? striker, defender, medium")
-                        context = nlp.process(input_text, context)
-                        context.has_player_role = True
-                        context.trace()
+                                    counter += 1
+                                    random_counter+=1
 
-                        counter += 1
+                            if x == 3:
+
+                                if context.has_player_role is False:
+                                    # input_text = input("random output from our database on this side asking the budget. Okey, what'?:")
+                                    # context.category_player_role = input("Nice, let's move on. What role would like to have your player? striker, defender, medium...")  # pick up random sentences from a database
+                                    input_text = input("Nice, let's move on. What role would like to have your player? striker, defender, medium")
+                                    context = nlp.process(input_text, context)
+                                    context.has_player_role = True
+                                    context.trace()
+
+                                    counter += 1
+                                    random_counter+=1
+
 
                     print("Final counter;", counter)
 
@@ -113,12 +139,12 @@ def do_logic(context):
 
 
             else:
-                saySomething("plis at first do only find or buy, later we will add more actions.")
-                do_logic(context)
+                saySomething("\n\n +++++++++   Please select a verb buy or find by now. We will add more actions in a whie   ++++++++++ \n\n")
+
 
         else:
-            print("define a verb")
-            do_logic(context)
+            saySomething("\n\n +++++++++   Please select a verb buy or find by now. We will add more actions in a whie   ++++++++++ \n\n")
+            # do_logic(context)   should loop asking again. Marco needs to help on this
 
 
 
