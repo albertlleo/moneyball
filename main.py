@@ -22,6 +22,9 @@ def main():
     context = nlp_context.RequestContext()
     nlp_engine = Nlp()
 
+    dialog = DialogManager()
+    dialog.processDialog(ID_HOW_CAN_I_HELP_YOU)
+
     while context.request_is_still_active:
 
         input_text = ""
@@ -32,7 +35,7 @@ def main():
 
         context = nlp_engine.process(input_text, context)
         context.trace()
-        context = process_logic(context)
+        context = process_logic(context, dialog)
 
     #filter(context)
 

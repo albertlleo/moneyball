@@ -15,3 +15,5 @@ quit
 	stop
 	leave
 	interrupt
+help
+	help

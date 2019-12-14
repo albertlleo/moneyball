@@ -1,6 +1,8 @@
 from tts.tts import *
 import random
 
+# Dialog Ids
+#######################
 ID_FIND_REQUEST_IS_READY = 1
 ID_ASK_FOR_BUDGET = 2
 ID_WELCOME = 3
@@ -14,6 +16,9 @@ ID_BUDGET_NOT_VALID = 10
 ID_THANKS = 11
 ID_GOODBYE = 12
 ID_INTENT_NOT_CLEAR = 13
+ID_HELP = 14
+ID_HOW_CAN_I_HELP_YOU = 15
+########################
 
 
 class DialogManager:
@@ -26,8 +31,14 @@ class DialogManager:
 
     def processDialog(self, dial_id, list_parameters=[]):
 
+        if dial_id == ID_HELP:
+            self.text = "Don't worry I can help you. Tell me if you are looking for a striker, defender or other " \
+                        "roles. Are you looking for someone fast or with an high stamina? Just ask and...don't forget " \
+                        "to tell me your budget! "
+        if dial_id == ID_HOW_CAN_I_HELP_YOU:
+            self.text = "Hey! How can I help you?"
         if dial_id == ID_INTENT_NOT_CLEAR:
-            self.text = "I am really understanding you. Could you repeat? "
+            self.text = "I am really understanding you. Could you repeat?"
         if dial_id == ID_GOODBYE:
             self.text = "Ok,see you!"
         if dial_id == ID_THANKS:

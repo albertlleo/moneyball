@@ -42,6 +42,10 @@ def intent_is_quit(context):
     return context.category_verb == "quit"
 
 
+def intent_is_help(context):
+    return context.category_verb == "help"
+
+
 def intent_is_invalid(context):
     return not context.request_did_success
 
@@ -58,18 +62,28 @@ def intent_is_missing_quantifier(context):
     return context.has_quantifier is False
 
 
+def intent_is_first_request(context):
+    return context.request_is_the_first_one
+
+
 ##############################################################
 
 
-def process_logic(context):
-    process_intents(context)
+def process_logic(context, dialog):
+    process_intents(context, dialog)
     return context
 
 
-def process_intents(context):
+def process_intents(context, dialog):
+
     context.trace()
 
-    dialog = DialogManager()
+    if intent_is_first_request(context):
+        context.request_is_the_first_one = False
+
+    if intent_is_help(context):
+        dialog.processDialog(ID_HELP)
+        return context
 
     if intent_is_quit(context):
         context.request_is_still_active = False
