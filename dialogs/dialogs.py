@@ -123,7 +123,6 @@ class DialogManager:
             if case == 0:
                 self.text = "{0} {1}s come in all shapes and sizes. What quality interests you the most?"\
                     .format(statement, list_parameters[0])
-                self.text = "{0}"
             if case == 1:
                 self.text = "{0} Are you looking for a fast, strong or a young upcoming talent?"\
                     .format(statement, list_parameters[0])
