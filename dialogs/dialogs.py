@@ -96,11 +96,11 @@ class DialogManager:
         if dial_id == ID_ASK_FOR_BUDGET:
             case = random.randint(0, 2)
             if case == 0:
-                self.text = "What's the allocated budget,coach. Please specify it in millions."
+                self.text = "What's the allocated budget?"
             elif case == 1:
-                self.text = "Let's get the financials out of the way. Whats your budget? Please specify it in millions."
+                self.text = "Let's get the financials out of the way. Whats your budget?."
             elif case == 2:
-                self.text = "I bet the management gave you a huge transfer budget.Please specify that in millions."
+                self.text = "I bet the management gave you a huge transfer budget.Please share that with me."
 
         if dial_id == ID_WELCOME:
             case = random.randint(0, 2)
