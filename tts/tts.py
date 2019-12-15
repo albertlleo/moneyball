@@ -8,7 +8,6 @@ import os
 class VoiceTTS:
 
     def __init__(self):
-
         if os.name == 'nt':
             self.engine = pyttsx3.init("sapi5", debug=False)
         else:

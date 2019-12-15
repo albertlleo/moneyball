@@ -178,4 +178,5 @@ class DialogManager:
             self.text = "Here's the list of the players I found."
         if dial_id == ID_CONFIRM_BUY:
             self.text = "Do you want to buy one of these players?"
+
         self.saySomething()

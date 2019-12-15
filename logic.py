@@ -66,20 +66,33 @@ def intent_is_missing_quantifier(context):
 def intent_is_first_request(context):
     return context.request_is_the_first_one
 
+
 def list_request_players_is_empty(list_request_player):
-    return list_request_player == []
+    return list_request_player == ""
+
+
+def ask_for_budget(context, dialog):
+    while intent_not_has_budget(context):
+        dialog.processDialog(ID_ASK_FOR_BUDGET)
+        budget = input("ask:")
+        if budget.isdigit():
+            dialog.processDialog(ID_THANKS)
+            context.budget_amount = budget
+            context.has_budget = True
+            return context
+        else:
+            dialog.processDialog(ID_BUDGET_NOT_VALID)
 
 
 ##############################################################
 
 
 def process_logic(context, dialog):
-    process_intents(context, dialog)
+    context = process_intents(context, dialog)
     return context
 
 
 def process_intents(context, dialog):
-    context.trace()
     if intent_is_first_request(context):
         context.request_is_the_first_one = False
 
@@ -107,15 +120,7 @@ def process_intents(context, dialog):
         return context
 
     if intent_not_has_budget(context):
-        while intent_not_has_budget(context):
-            dialog.processDialog(ID_ASK_FOR_BUDGET)
-            budget = input("ask:")
-            if budget.isdigit():
-                dialog.processDialog(ID_THANKS)
-                context.budget_amount = budget
-                context.has_budget = True
-            else:
-                dialog.processDialog(ID_BUDGET_NOT_VALID)
+        context = ask_for_budget(context, dialog)
 
     if intent_is_missing_role(context):
         dialog.processDialog(ID_ASK_PLAYER_ROLE)
@@ -132,21 +137,19 @@ def process_intents(context, dialog):
     if intent_is_ready_for_search(context):
         dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute,
                                                         context.category_attribute])
-        # get_request_players(context)
-
-        list_request_player=[]
+        list_request_player = get_request_players(context)
+        print(list_request_player)
 
         if list_request_players_is_empty(list_request_player):
             dialog.processDialog(ID_INCREASE_BUDGET)
-            context.budget_ammount = 0
+            context.budget_amount = 0
             context.has_budget = False
+            context.request_skip_input = True
+            context = ask_for_budget(context, dialog)
             return context
-
         else:
             dialog.processDialog(ID_PLAYER_LIST)
             print(list_request_player)
 
-
-
-
-
+    context.request_is_still_active = False
+    return context
