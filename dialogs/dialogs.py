@@ -49,7 +49,8 @@ class DialogManager:
         if dial_id == ID_HOW_CAN_I_HELP_YOU:
             dt = datetime.datetime.now()
             case = random.randint(0, 2)
-
+            greeting = ""
+            greeting_2 = ""
             if dt.time() < datetime.time(12):
                 greeting = "Good Morning"
                 greeting_2 = "What a lovely morning"
@@ -58,7 +59,7 @@ class DialogManager:
                 greeting_2 = "What a lovely afternoon"
 
             if case == 0:
-                self.text = "{0}! I am Loe, how can I help?".format(greeting)
+                self.text = "{0}! I am Leo, how can I help?".format(greeting)
             elif case == 1:
                 self.text = "{0}! I am Leo, the best transfer market bot available. How may I be of service?".format(
                     greeting_2)
@@ -132,6 +133,7 @@ class DialogManager:
                         "or buy football players."
 
         if dial_id == ID_ASK_ATTRIBUTE:
+            statement = ""
             if list_parameters[0] == "defender":
                 statement = "Excellent choice. A strong defense is what every team is after."
             elif list_parameters[0] == "midfielder":

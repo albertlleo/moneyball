@@ -11,7 +11,7 @@ from nl.nlp import *
 # 0 == Google Cloud Speech
 # 1 == Sphinx
 # 2 == Google Speech Recognition
-ASR_MODE = 2
+ASR_MODE = 0
 DEBUG = False
 
 
