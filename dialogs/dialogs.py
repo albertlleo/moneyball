@@ -75,7 +75,7 @@ class DialogManager:
             self.text = "Ok, thanks!"
 
         if dial_id == ID_BUDGET_NOT_VALID:
-            case = random.randint(0, 2)
+            case = random.randint(0, 1)
             if case == 0:
                 self.text = "Budget value seems invalid. Please use digits"
             elif case == 1:
@@ -86,21 +86,24 @@ class DialogManager:
         if dial_id == ID_ASK_FOR_BUDGET:
             case = random.randint(0, 2)
             if case == 0:
-                self.text = "How much budget can you allocate me, coach?"
+                self.text = "What's the allocated budget, coach?"
             if case == 1:
-                self.text = "Whats the budget we are working with,coach?"
+                self.text = "Let's get the financials out of the way. Whats the budget we are working with here,coach?"
             if case == 2:
-                self.text = "I bet the management gave you a huge transfer budget. Can you share that with me"
+                self.text = "I bet the management gave you a huge transfer budget. Can you share that with me?"
 
         if dial_id == ID_WELCOME:
-            case = random.randint(0, 1)
+            case = random.randint(0, 2)
             if case == 0:
                 self.text = "Great! You are just a couple of questions away from a perfect player for your team."
             elif case == 1:
                 self.text = "I understand that the transfer deadline is fast approaching. Not to worry, you are in safe hands"
             elif case == 2:
-                self.text = " when I first started playing football"
+                self.text = "I remember the days when I first started playing football, oh the smell of freshly cut " \
+                            "grass,and, ,oops! sorry I am getting distracted. Let's find you a player."
+
         if dial_id == ID_SHOW_LIST_OF_STRIKER:
+            case - random.randint(0, 2)
             if case == 0:
                 self.text = "This is the list of the {0} you are looking for".format(list_parameters[0])
             if case == 1:
@@ -112,20 +115,21 @@ class DialogManager:
         if dial_id == ID_ASK_ATTRIBUTE:
             if list_parameters[0] == "defender":
                 statement = "Excellent choice. A strong defense is what every team is after."
-                pos = "defenders"
             elif list_parameters[0] == "midfielder":
                 statement = "Looking to boost the engine room?Excellent."
-                pos = "midfielders"
             elif list_parameters[0] == "forward":
                 statement = "A lethal strike force can turn games on it's head."
-                pos = "strikers"
             case = random.randint(0, 2)
             if case == 0:
-                self.text = "{0} {1}s come in all shapes and sizes. What quality interests you the most?".format(statement, list_parameters[0])
+                self.text = "{0} {1}s come in all shapes and sizes. What quality interests you the most?"\
+                    .format(statement, list_parameters[0])
+                self.text = "{0}"
             if case == 1:
-                self.text = "{0} {1}s come in all shapes and sizes. What quality interests you the most?".format(statement, list_parameters[0])
+                self.text = "{0} Are you looking for a fast, strong or a young upcoming talent?"\
+                    .format(statement, list_parameters[0])
             if case == 2:
-                self.text = "{0} {1}s come in all shapes and sizes. What quality interests you the most?".format(statement, list_parameters[0])
+                self.text = "{0} Is it strength or longevity or blistering pace that you seek?"\
+                    .format(statement, list_parameters[0])
         if dial_id == ID_FIND_HAS_PLAYER_NAME:
             self.text = "Ok, here you have all the information for {0} ".format(list_parameters[0])
         if dial_id == ID_ASK_PLAYER_ROLE:
