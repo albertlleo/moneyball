@@ -56,7 +56,7 @@ def get_request_players(context):
             df_filtered.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Value_Real']]
         df_screen = df_screen.reset_index()
 
-        output = df_screen.iloc[:, 1:-1].to_string()
+        output = df_screen.iloc[0:1, 1:-1].to_string()
         return output
 
 
