@@ -25,21 +25,21 @@ def filter(context):
 #usr_role = 'striker'
 #usr_budget = 1000000
 
-df_output = pd.DataFrame()
-df_output = df[(df[usr_attr] == usr_quant) & (df['position'] == usr_role)]
-df_output = df_output.sort_values('overall', ascending=True)
+    df_output = pd.DataFrame()
+    df_output = df[(df[usr_attr] == usr_quant) & (df['position'] == usr_role)]
+    df_output = df_output.sort_values('overall', ascending=True)
 
-df_output['Value_R'] = df_output['Value_Real'].values.astype(int)
-df_output = df_output[df_output['Value_R'] <= usr_budget]
+    df_output['Value_R'] = df_output['Value_Real'].values.astype(int)
+    df_output = df_output[df_output['Value_R'] <= usr_budget]
 
-df_screen = df_output.loc[df_output.index[:5], ['name', 'Worth', 'Average_', 'potential', 'Value_Real']]
-df_screen['Average_'] = df_screen['Average_'].astype(str) + '/' + '100'
-df_screen.columns = ['Player Name', 'Market Value', 'Overall Score', 'Player Talent', 'Value_Real']
+    df_screen = df_output.loc[df_output.index[:5], ['name', 'Worth', 'Average_', 'potential', 'Value_Real']]
+    df_screen['Average_'] = df_screen['Average_'].astype(str) + '/' + '100'
+    df_screen.columns = ['Player Name', 'Market Value', 'Overall Score', 'Player Talent', 'Value_Real']
 
-df_screen = df_screen.sort_values('Value_Real', ascending=True)
-df_screen = df_screen.reset_index()
-df_screen.reindex(['1','2','3'])
-print(df_screen.iloc[:,1:-1])
+    df_screen = df_screen.sort_values('Value_Real', ascending=True)
+    df_screen = df_screen.reset_index()
+    df_screen.reindex(['1','2','3'])
+    print(df_screen.iloc[:,1:-1])
 
 
 
