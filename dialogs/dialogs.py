@@ -49,15 +49,17 @@ class DialogManager:
         if dial_id == ID_HOW_CAN_I_HELP_YOU:
             dt = datetime.datetime.now()
             case = random.randint(0, 2)
-
+            greeting = ""
+            greeting_2 = ""
             if dt.time() < datetime.time(12):
                 greeting = "Good Morning"
                 greeting_2 = "What a lovely morning"
             else:
                 greeting = "Good Afternoon"
                 greeting_2 = "What a lovely afternoon"
+
             if case == 0:
-                self.text = "{0}! I am Loe, how can I help?".format(greeting)
+                self.text = "{0}! I am Leo, how can I help?".format(greeting)
             elif case == 1:
                 self.text = "{0}! I am Leo, the best transfer market bot available. How may I be of service?".format(
                     greeting_2)
@@ -101,11 +103,11 @@ class DialogManager:
         if dial_id == ID_ASK_FOR_BUDGET:
             case = random.randint(0, 2)
             if case == 0:
-                self.text = "What's the allocated budget,coach. Please specify it in millions."
+                self.text = "What's the allocated budget?(in millions)"
             elif case == 1:
-                self.text = "Let's get the financials out of the way. Whats your budget? Please specify it in millions."
+                self.text = "Let's get the financials out of the way. Please specify your budget in millions."
             elif case == 2:
-                self.text = "I bet the management gave you a huge transfer budget.Please specify that in millions."
+                self.text = "I bet the management gave you a huge transfer budget.All the values are in millions."
 
         if dial_id == ID_WELCOME:
             case = random.randint(0, 2)
@@ -131,6 +133,7 @@ class DialogManager:
                         "or buy football players."
 
         if dial_id == ID_ASK_ATTRIBUTE:
+            statement = ""
             if list_parameters[0] == "defender":
                 statement = "Excellent choice. A strong defense is what every team is after."
             elif list_parameters[0] == "midfielder":
@@ -170,7 +173,7 @@ class DialogManager:
                 self.text = "Best {0} are costly while cheaper ones are average. Are you looking for an average or a " \
                             "best player? "
         if dial_id == ID_FIND_REQUEST_IS_READY:
-            case = random.randint(0, 2)
+            case = random.randint(0, 1)
             if 0 == case:
                 self.text = "Ok, I will start searching for a {0} with a {1} {2}".format(list_parameters[0],
                                                                                          list_parameters[1],
@@ -191,7 +194,7 @@ class DialogManager:
         if dial_id == ID_CONFIRM_BUY_HIM:
             self.text = "Perfect! Do you wanna buy him?"
         if dial_id == ID_PURCHASE_COMPLETE:
-            self.text = "Good choice! Happy Christmas!"
+            self.text = "Good choice! Merry Christmas!"
         if dial_id == ID_NO_RESULTS:
             self.text = self.text = "Sorry, there is no {0} with a {1} {2}. Let's start again".format(list_parameters[0], list_parameters[1], list_parameters[2])
 
