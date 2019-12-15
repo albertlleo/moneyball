@@ -29,7 +29,7 @@ class DialogManager:
 
     def saySomething(self):
         print(self.text)
-        self.voice.processTextToSpeech(self.text)
+        #self.voice.processTextToSpeech(self.text)
 
     def processDialog(self, dial_id, list_parameters=[]):
 
