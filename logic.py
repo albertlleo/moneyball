@@ -75,9 +75,6 @@ def process_logic(context, dialog):
 
 
 def process_intents(context, dialog):
-
-    context.trace()
-
     if intent_is_first_request(context):
         context.request_is_the_first_one = False
 

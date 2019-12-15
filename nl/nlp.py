@@ -7,7 +7,7 @@ from __future__ import unicode_literals, print_function
 from spacy.lang.en import English
 from nl import nlp_matcher
 from nl import semantics
-
+from nl.semantics import Semantic
 
 DEBUG = True
 
@@ -52,6 +52,8 @@ class Nlp:
                 context.request_did_success = True
             if self.matcher_player_name.match(token, context, self.player_name_semantic):
                 context.request_did_success = True
+            Semantic.check_infers(token.lemma_, context)
+
         if DEBUG:
             self.debug_log(doc)
 
