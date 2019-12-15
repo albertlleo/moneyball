@@ -27,7 +27,7 @@ def get_request_players(context):
         df = df[df['Value_Real'] != 0]
         df['Value_Real'] = df['Value_Real'].astype(int)
 
-        df_filtered = df[df['Value_Real'] < int(usr_budget)]
+        df_filtered = df[df['Value_Real'] < (1000000*int(usr_budget))]
         df_output = df_filtered[(df_filtered[usr_attr] == usr_quant) & (df_filtered['position'] == usr_role)]
         df_output = df_output.sort_values('overall', ascending=True)
         is_empty = df_output.empty
