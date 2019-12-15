@@ -104,7 +104,7 @@ def process_intents(context, dialog):
     if intent_not_has_budget(context):
         while intent_not_has_budget(context):
             dialog.processDialog(ID_ASK_FOR_BUDGET)
-            budget = input()
+            budget = input("ask:")
             if budget.isdigit():
                 dialog.processDialog(ID_THANKS)
                 context.budget_amount = budget
