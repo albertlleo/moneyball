@@ -71,8 +71,6 @@ def processASR(asr_mode):
         else:
             speech = recognizeGoogleSpeechRecognition(r, audio)
 
-    print(speech)
-
     return speech
 
 

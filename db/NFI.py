@@ -7,7 +7,6 @@ import pandas as pd
 import pandas as pd
 
 
-
 def get_request_players(context):
     df = pd.read_csv("db/NFIdatabase.csv", names=['name', 'age', 'overall',
                                                   'value', 'potential', 'stamina', 'Nationality',
@@ -17,7 +16,6 @@ def get_request_players(context):
                                                   'Value_Real', 'Wage_Real', 'Main_Position', 'position',
                                                   'Release Clause'])
 
-    # print("fas")
     # context.has_player_name = True
     if context.has_player_name is False:
         usr_budget = context.budget_amount
@@ -29,12 +27,10 @@ def get_request_players(context):
     else:
         usr_name = context.category_player
 
-    # usr_attr = 'age'
-    # usr_quant = 'young'
-    # usr_role = 'striker'
-    # usr_budget = 1
-
-    df_output = pd.DataFrame()
+    usr_attr = 'age'
+    usr_quant = 'low'
+    usr_role = 'striker'
+    usr_budget = 10000000
 
     df = df[df['Value_Real'] != 0]
 
@@ -42,10 +38,12 @@ def get_request_players(context):
     df_filtered = df[df['Value_Real'] < int(usr_budget)]
     df_output = df_filtered[(df_filtered[usr_attr] == usr_quant) & (df_filtered['position'] == usr_role)]
     df_output = df_output.sort_values('overall', ascending=True)
+    print(df_output)
 
-
-    isempty = df_output.empty
-    if not isempty:
+    is_empty = df_output.empty
+    print(is_empty)
+    output = ""
+    if not is_empty:
 
         df_screen = df_filtered.loc[
             df_filtered.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Release Clause', 'Value_Real']]
@@ -56,9 +54,7 @@ def get_request_players(context):
         df_screen = df_screen.reset_index()
 
         output = df_screen.iloc[:, 1:-1].to_string()
-        return output
-    else:
-        output = ''
-        return output
+
+    return output
 
 
