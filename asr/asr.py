@@ -70,6 +70,7 @@ def processASR(asr_mode):
             speech = recognizeSphinx(r, audio)
         else:
             speech = recognizeGoogleSpeechRecognition(r, audio)
+        print(speech)
 
     return speech
 
