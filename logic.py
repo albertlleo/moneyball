@@ -3,7 +3,7 @@ from dialogs.dialogs import *
 from nl import *
 from nl import nlp
 import random
-from NFI import get_request_players
+from db.NFI import get_request_players
 
 
 #################### LIST OF INTENTS ############################

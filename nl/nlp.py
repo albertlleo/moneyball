@@ -36,11 +36,17 @@ class Nlp:
         self.matcher_player_name = nlp_matcher.PlayerNameRecognizer(self.nlp, self.player_name_semantic)
         self.nlp.add_pipe(self.matcher_player_name, last=True)
 
+        self.confirmation_semantic = semantics.SemanticConfirmation()
+        self.matcher_confirmation = nlp_matcher.ConfirmationRecognizer(self.nlp, self.confirmation_semantic)
+        self.nlp.add_pipe(self.matcher_confirmation, last=True)
+
     def process(self, text, context):
 
         doc = self.nlp(text)
 
         context.request_did_success = False
+        context.has_confirmation = False
+        context.category_confirmation = ""
         for token in doc:
             if self.matcher_verb.match(token, context, self.verb_semantic):
                 context.request_did_success = True
@@ -51,6 +57,8 @@ class Nlp:
             if self.matcher_player_role.match(token, context, self.player_role_semantic):
                 context.request_did_success = True
             if self.matcher_player_name.match(token, context, self.player_name_semantic):
+                context.request_did_success = True
+            if self.matcher_confirmation.match(token, context, self.confirmation_semantic):
                 context.request_did_success = True
             Semantic.check_infers(token.lemma_, context)
 

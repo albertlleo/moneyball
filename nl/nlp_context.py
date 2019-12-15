@@ -29,6 +29,9 @@ class RequestContext:
     has_player_name = False
     player_name = ""
 
+    has_confirmation = False
+    category_confirmation = ""
+
     def trace(self):
         print("\n******CONTEXT******")
         print("has_verb\t", self.has_verb)
@@ -45,5 +48,7 @@ class RequestContext:
         print("player_name\t", self.player_name)
         print("request_is_still_active\t", self.request_is_still_active)
         print("request_did_success\t", self.request_did_success)
+        print("has_confirmation\t", self.has_confirmation)
+        print("confirmation_category\t", self.category_confirmation)
         print("************")
 
