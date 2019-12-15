@@ -3,6 +3,7 @@ from dialogs.dialogs import *
 from nl import *
 from nl import nlp
 import random
+from NFI import get_request_players
 
 
 #################### LIST OF INTENTS ############################
@@ -128,3 +129,4 @@ def process_intents(context, dialog):
         dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute,
                                                         context.category_attribute])
         context.request_is_still_active = False
+        get_request_players(context)
