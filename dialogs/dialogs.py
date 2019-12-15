@@ -26,6 +26,7 @@ ID_RESTART_QUERY = 19
 ID_TELL_ME_NAME=20
 ID_CONFIRM_BUY_HIM = 21
 ID_PURCHASE_COMPLETE = 23
+ID_NO_RESULTS = 24
 
 ########################
 
@@ -36,7 +37,7 @@ class DialogManager:
 
     def saySomething(self):
         print(self.text)
-        # self.voice.processTextToSpeech(self.text)
+        self.voice.processTextToSpeech(self.text)
 
     def processDialog(self, dial_id, list_parameters=[]):
 
@@ -124,7 +125,7 @@ class DialogManager:
                 self.text = "According to my sophisticated calculations, these are the best {0} for you.".format(
                     list_parameters[0])
             elif case == 2:
-                self.text = " Here are some of the {0} for your team.".format(list_parameters[0])
+                self.text = "Here are some of the {0} for your team.".format(list_parameters[0])
         if dial_id == ID_NO_VERB:
             self.text = "Remember that you can always ask me to find " \
                         "or buy football players."
@@ -166,7 +167,8 @@ class DialogManager:
                     list_parameters[0],
                     list_parameters[1])
             elif case == 1:
-                self.text = "Best {0} are costly while cheaper ones are average. Are you looking for an average or a best player?"
+                self.text = "Best {0} are costly while cheaper ones are average. Are you looking for an average or a " \
+                            "best player? "
         if dial_id == ID_FIND_REQUEST_IS_READY:
             case = random.randint(0, 2)
             if 0 == case:
@@ -190,5 +192,7 @@ class DialogManager:
             self.text = "Perfect! Do you wanna buy him?"
         if dial_id == ID_PURCHASE_COMPLETE:
             self.text = "Good choice! Happy Christmas!"
+        if dial_id == ID_NO_RESULTS:
+            self.text = self.text = "Sorry, there is no {0} with a {1} {2}. Let's start again".format(list_parameters[0], list_parameters[1], list_parameters[2])
 
         self.saySomething()

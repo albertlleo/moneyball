@@ -118,7 +118,8 @@ def process_intents(context, dialog):
     if intent_has_verb_and_player(context):
         if not context.has_confirmation:
             dialog.processDialog(ID_FIND_HAS_PLAYER_NAME, [context.player_name])
-            print(get_request_players(context))
+            player_details, no_results = get_request_players(context)
+            print(player_details)
             dialog.processDialog(ID_CONFIRM_BUY_HIM)
             return context
         elif context.category_confirmation == "yes":
@@ -149,7 +150,14 @@ def process_intents(context, dialog):
         if not context.has_confirmation:
             dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute,
                                                             context.category_attribute])
-            list_request_player = get_request_players(context)
+            list_request_player, no_results = get_request_players(context)
+
+            if no_results:
+                dialog.processDialog(ID_NO_RESULTS,
+                                     [context.category_player_role, context.quantifier_attribute,
+                                      context.category_attribute])
+                context.reset_for_new_search()
+                return context
 
             if list_request_players_is_empty(list_request_player):
                 dialog.processDialog(ID_INCREASE_BUDGET)
