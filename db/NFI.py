@@ -52,11 +52,16 @@ def get_request_players(context):
     else:
         usr_name = context.player_name
         df_filtered = df[df['name'].str.contains(str(usr_name))]
-        df_screen = df_filtered.loc[
-            df_filtered.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Value_Real']]
-        df_screen = df_screen.reset_index()
+        df_detail = df_filtered.loc[
+            df_filtered.index[:5], ['name', 'Nationality', 'Club', 'International Reputation', 'Worth',
+                                    'Contract Valid Until', 'Release Clause', 'Value_Real']]
+        df_detail['International Reputation'] = df_detail['International Reputation'].astype(str) + '/' + '5.0'
 
-        output = df_screen.iloc[0:1, 1:-1].to_string()
+
+
+        df_detail = df_detail.reset_index()
+
+        output = df_detail.iloc[0:1, 1:-1].to_string()
         return output, no_results
 
 
