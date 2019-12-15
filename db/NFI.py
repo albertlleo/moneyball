@@ -4,12 +4,15 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv("NFIdatabase.csv",  names=['name', 'age', 'overall', 'value', 'potential', 'stamina', 'Average_', 'speed', 'diligence', 'Worth', 'Wage',
-             'Value_Real', 'Wage_Real', 'Main_Position', 'position'])
+df = pd.read_csv("db/NFIdatabase.csv",
+                 names=['name', 'age', 'overall', 'value', 'potential', 'stamina', 'Average_', 'speed', 'diligence',
+                        'Worth', 'Wage',
+                        'Value_Real', 'Wage_Real', 'Main_Position', 'position'])
 
-def filter(context):
+
+def get_request_players(context):
     # print("fas")
-    context.has_player_name = True
+    # context.has_player_name = True
     if context.has_player_name is False:
         usr_budget = context.budget_amount
 
@@ -20,10 +23,10 @@ def filter(context):
     else:
         usr_name = context.category_player
 
-#usr_attr = 'age'
-#usr_quant = 'young'
-#usr_role = 'striker'
-#usr_budget = 100000000
+    # usr_attr = 'age'
+    # usr_quant = 'young'
+    # usr_role = 'striker'
+    # usr_budget = 10000000
 
     df_output = pd.DataFrame()
 
@@ -37,9 +40,5 @@ def filter(context):
     df_screen.columns = ['Player Name', 'Market Value', 'Overall Score', 'Player Talent', 'Value_Real']
     df_screen = df_screen.sort_values('Value_Real', ascending=True)
     df_screen = df_screen.reset_index()
-    df_screen.reindex(['1','2','3','4','5'])
-    print(df_screen.iloc[:,1:-1])
-
-
-
-
+    df_screen.reindex(['1', '2', '3', '4', '5'])
+    print(df_screen.iloc[:, 1:-1])

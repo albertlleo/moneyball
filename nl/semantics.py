@@ -102,6 +102,13 @@ class SemanticPlayerRole(Semantic):
         self._build_tree(open("nl/voc/playerRole.voc"))
 
 
+class SemanticConfirmation(Semantic):
+    semantics = {}
+
+    def __init__(self):
+        self._build_tree(open("nl/voc/confirmation.voc"))
+
+
 class SemanticPlayerName(Semantic):
     semantics = {}
 

@@ -3,6 +3,7 @@ from dialogs.dialogs import *
 from nl import *
 from nl import nlp
 import random
+from db.NFI import get_request_players
 
 
 #################### LIST OF INTENTS ############################
@@ -29,7 +30,7 @@ def intent_has_only_verb(context):
            and not context.has_player_name
 
 
-def intent_is_ready_for_seach(context):
+def intent_is_ready_for_search(context):
     return context.has_verb \
            and context.has_attribute \
            and context.has_player_role \
@@ -78,6 +79,9 @@ def process_intents(context, dialog):
     if intent_is_first_request(context):
         context.request_is_the_first_one = False
 
+    if intent_is_invalid(context):
+        dialog.processDialog(ID_INTENT_NOT_CLEAR)
+
     if intent_is_help(context):
         dialog.processDialog(ID_HELP)
         return context
@@ -86,9 +90,6 @@ def process_intents(context, dialog):
         context.request_is_still_active = False
         dialog.processDialog(ID_GOODBYE)
         return context
-
-    if intent_is_invalid(context):
-        dialog.processDialog(ID_INTENT_NOT_CLEAR)
 
     if intent_no_verb(context):
         dialog.processDialog(ID_NO_VERB)
@@ -104,7 +105,7 @@ def process_intents(context, dialog):
     if intent_not_has_budget(context):
         while intent_not_has_budget(context):
             dialog.processDialog(ID_ASK_FOR_BUDGET)
-            budget = input()
+            budget = input("ask:")
             if budget.isdigit():
                 dialog.processDialog(ID_THANKS)
                 context.budget_amount = budget
@@ -124,7 +125,8 @@ def process_intents(context, dialog):
         dialog.processDialog(ID_ASK_QUANTIFIER, [context.category_attribute, context.category_player_role])
         return context
 
-    if intent_is_ready_for_seach(context):
+    if intent_is_ready_for_search(context):
         dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute,
                                                         context.category_attribute])
         context.request_is_still_active = False
+        get_request_players(context)
