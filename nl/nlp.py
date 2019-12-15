@@ -9,7 +9,7 @@ from nl import nlp_matcher
 from nl import semantics
 from nl.semantics import Semantic
 
-DEBUG = True
+DEBUG = False
 
 
 class Nlp:
