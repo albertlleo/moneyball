@@ -29,7 +29,7 @@ def get_request_players(context):
         df_filtered = df[df['Value_Real'] < int(usr_budget)]
         #print(df_filtered)
         df_output = df_filtered[(df_filtered[usr_attr] == usr_quant) & (df_filtered['position'] == usr_role)]
-        #df_output = df_output.sort_values('overall', ascending=True)
+        df_output = df_output.sort_values('overall', ascending=True)
 
         is_empty = df_output.empty
         print(is_empty)
@@ -49,6 +49,13 @@ def get_request_players(context):
 
     else:
         usr_name = context.category_player
+        df_filtered = df[df['name'].str.contains(usr_name)]
+        df_screen = df_filtered.loc[
+            df_filtered.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Value_Real']]
+
+
+
+
 
     # usr_attr = 'age'
     # usr_quant = 'low'
