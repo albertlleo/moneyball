@@ -55,6 +55,7 @@ class DialogManager:
             else:
                 greeting = "Good Afternoon"
                 greeting_2 = "What a lovely afternoon"
+
             if case == 0:
                 self.text = "{0}! How can I help?".format(greeting)
             elif case == 1:
@@ -100,11 +101,11 @@ class DialogManager:
         if dial_id == ID_ASK_FOR_BUDGET:
             case = random.randint(0, 2)
             if case == 0:
-                self.text = "What's the allocated budget?"
+                self.text = "What's the allocated budget?(in millions)"
             elif case == 1:
-                self.text = "Let's get the financials out of the way. Whats your budget?."
+                self.text = "Let's get the financials out of the way. Please specify your budget in millions."
             elif case == 2:
-                self.text = "I bet the management gave you a huge transfer budget.Please share that with me."
+                self.text = "I bet the management gave you a huge transfer budget.All the values are in millions."
 
         if dial_id == ID_WELCOME:
             case = random.randint(0, 2)
@@ -168,7 +169,7 @@ class DialogManager:
             elif case == 1:
                 self.text = "Best {0} are costly while cheaper ones are average. Are you looking for an average or a best player?"
         if dial_id == ID_FIND_REQUEST_IS_READY:
-            case = random.randint(0, 2)
+            case = random.randint(0, 1)
             if 0 == case:
                 self.text = "Ok, I will start searching for a {0} with a {1} {2}".format(list_parameters[0],
                                                                                          list_parameters[1],
@@ -189,6 +190,6 @@ class DialogManager:
         if dial_id == ID_CONFIRM_BUY_HIM:
             self.text = "Perfect! Do you wanna buy him?"
         if dial_id == ID_PURCHASE_COMPLETE:
-            self.text = "Good choice! Happy Christmas!"
+            self.text = "Good choice! Merry Christmas!"
 
         self.saySomething()
