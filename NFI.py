@@ -7,7 +7,7 @@ import pandas as pd
 df = pd.read_csv("NFIdatabase.csv",  names=['name', 'age', 'overall', 'value', 'potential', 'stamina', 'Average_', 'speed', 'diligence', 'Worth', 'Wage',
              'Value_Real', 'Wage_Real', 'Main_Position', 'position'])
 
-def filter(context):
+def get_request_players(context):
     # print("fas")
     # context.has_player_name = True
     if context.has_player_name is False:
