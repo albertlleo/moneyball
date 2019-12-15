@@ -23,6 +23,7 @@ ID_INCREASE_BUDGET = 16
 ID_PLAYER_LIST = 17
 ID_CONFIRM_BUY = 18
 ID_RESTART_QUERY = 19
+ID_TELL_ME_NAME=20
 
 ########################
 
@@ -181,5 +182,7 @@ class DialogManager:
             self.text = "Do you want to buy one of these players?"
         if dial_id == ID_RESTART_QUERY:
             self.text = "I feel bad the results are not what you expected, let's restart the query"
+        if dial_id == ID_TELL_ME_NAME:
+            self.text = "Perfect! Please, tell me the name of the player you want. "
 
         self.saySomething()
