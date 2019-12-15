@@ -12,6 +12,7 @@ from nl.nlp import *
 # 1 == Sphinx
 # 2 == Google Speech Recognition
 ASR_MODE = 2
+DEBUG = False
 
 
 def main():
@@ -36,10 +37,9 @@ def main():
 
             context = nlp_engine.process(input_text, context)
         context.request_skip_input = False
-        context.trace()
+        if DEBUG:
+            context.trace()
         context = process_logic(context, dialog)
-
-    #filter(context)
 
 
 if __name__ == "__main__":

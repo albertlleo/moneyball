@@ -51,7 +51,7 @@ def get_request_players(context):
 
     else:
         usr_name = context.player_name
-        df_filtered = df[df['name'].str.contains(usr_name)]
+        df_filtered = df[df['name'].str.contains(str(usr_name))]
         df_screen = df_filtered.loc[
             df_filtered.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Value_Real']]
         df_screen = df_screen.reset_index()
