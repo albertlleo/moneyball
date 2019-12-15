@@ -6,6 +6,7 @@ high
 	fast->[infers;has_attribute;speed]
 	old->[infers;has_attribute;age]
 	expensive
+	strong->[infers;has_attribute;stamina]
 medium
 	medium
 	good
