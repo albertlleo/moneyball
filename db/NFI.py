@@ -34,25 +34,30 @@ def get_request_players(context):
         is_empty = df_output.empty
         print(is_empty)
         output = ""
-        if not is_empty:
+        if is_empty:
+            usr_budget = 10000000000
+            df_output = df_filtered[(df_filtered[usr_attr] == usr_quant) & (df_filtered['position'] == usr_role)]
+            df_output = df_output.sort_values('overall', ascending=True)
 
-            df_screen = df_output.loc[
-                df_output.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Value_Real']]
-            df_screen['Overall Score'] = df_screen['Overall Score'].astype(str) + '/' + '100'
-            df_screen.columns = ['Player Name', 'Market Value', 'Overall Score', 'Player Talent', 'Value_Real']
-            df_screen = df_screen.sort_values('Value_Real', ascending=False)
-            df_screen = df_screen.reset_index()
+        df_screen = df_output.loc[
+            df_output.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Value_Real']]
+        df_screen['Overall Score'] = df_screen['Overall Score'].astype(str) + '/' + '100'
+        df_screen.columns = ['Player Name', 'Market Value', 'Overall Score', 'Player Talent', 'Value_Real']
+        df_screen = df_screen.sort_values('Value_Real', ascending=False)
+        df_screen = df_screen.reset_index()
 
-            output = df_screen.iloc[:, 1:-1].to_string()
-
+        output = df_screen.iloc[:, 1:-1].to_string()
         return output
 
     else:
-        usr_name = context.category_player
+        usr_name = context.player_name
         df_filtered = df[df['name'].str.contains(usr_name)]
         df_screen = df_filtered.loc[
             df_filtered.index[:5], ['name', 'Worth', 'Overall Score', 'potential', 'Value_Real']]
+        df_screen = df_screen.reset_index()
 
+        output = df_screen.iloc[:, 1:-1].to_string()
+        return output
 
 
 
