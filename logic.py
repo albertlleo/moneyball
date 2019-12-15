@@ -158,7 +158,8 @@ def process_intents(context, dialog):
 
         else:
             dialog.processDialog(ID_RESTART_QUERY)
-
+            context.reset_for_new_search()
+            return context
 
     context.request_is_still_active = False
     return context
