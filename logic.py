@@ -66,6 +66,9 @@ def intent_is_missing_quantifier(context):
 def intent_is_first_request(context):
     return context.request_is_the_first_one
 
+def list_request_players_is_empty(list_request_player):
+    return list_request_player == []
+
 
 ##############################################################
 
@@ -76,6 +79,7 @@ def process_logic(context, dialog):
 
 
 def process_intents(context, dialog):
+    context.trace()
     if intent_is_first_request(context):
         context.request_is_the_first_one = False
 
@@ -128,5 +132,21 @@ def process_intents(context, dialog):
     if intent_is_ready_for_search(context):
         dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute,
                                                         context.category_attribute])
-        context.request_is_still_active = False
-        get_request_players(context)
+        # get_request_players(context)
+
+        list_request_player=[]
+
+        if list_request_players_is_empty(list_request_player):
+            dialog.processDialog(ID_INCREASE_BUDGET)
+            context.budget_ammount = 0
+            context.has_budget = False
+            return context
+
+        else:
+            dialog.processDialog(ID_PLAYER_LIST)
+            print(list_request_player)
+
+
+
+
+
