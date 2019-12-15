@@ -78,6 +78,9 @@ def process_intents(context, dialog):
     if intent_is_first_request(context):
         context.request_is_the_first_one = False
 
+    if intent_is_invalid(context):
+        dialog.processDialog(ID_INTENT_NOT_CLEAR)
+
     if intent_is_help(context):
         dialog.processDialog(ID_HELP)
         return context
@@ -86,9 +89,6 @@ def process_intents(context, dialog):
         context.request_is_still_active = False
         dialog.processDialog(ID_GOODBYE)
         return context
-
-    if intent_is_invalid(context):
-        dialog.processDialog(ID_INTENT_NOT_CLEAR)
 
     if intent_no_verb(context):
         dialog.processDialog(ID_NO_VERB)
