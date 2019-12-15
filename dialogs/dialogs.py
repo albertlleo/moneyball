@@ -57,12 +57,12 @@ class DialogManager:
                 greeting = "Good Afternoon"
                 greeting_2 = "What a lovely afternoon"
             if case == 0:
-                self.text = "{0}! How can I help?".format(greeting)
+                self.text = "{0}! I am Loe, how can I help?".format(greeting)
             elif case == 1:
-                self.text = "{0}! I am John, the best transfer market bot available. How may I be of service?".format(
+                self.text = "{0}! I am Leo, the best transfer market bot available. How may I be of service?".format(
                     greeting_2)
             elif case == 2:
-                self.text = "Hi! I am John and I will help you find the best players. What are you looking for?"
+                self.text = "Hi! I am Leo and I will help you find the best players. What are you looking for?"
 
         if dial_id == ID_INTENT_NOT_CLEAR:
             case = random.randint(0, 2)
@@ -87,7 +87,7 @@ class DialogManager:
             if case == 0:
                 self.text = "Ok, thanks!"
             if case == 1:
-                self.text = " Thank you."
+                self.text = "Thank you."
 
         if dial_id == ID_BUDGET_NOT_VALID:
             case = random.randint(0, 1)
