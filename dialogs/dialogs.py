@@ -23,10 +23,11 @@ ID_INCREASE_BUDGET = 16
 ID_PLAYER_LIST = 17
 ID_CONFIRM_BUY = 18
 ID_RESTART_QUERY = 19
-ID_TELL_ME_NAME=20
+ID_TELL_ME_NAME = 20
 ID_CONFIRM_BUY_HIM = 21
 ID_PURCHASE_COMPLETE = 23
 ID_NO_RESULTS = 24
+
 
 ########################
 
@@ -105,19 +106,20 @@ class DialogManager:
             if case == 0:
                 self.text = "What's the allocated budget?(in millions)"
             elif case == 1:
-                self.text = "Let's get the financials out of the way. Please specify your budget in millions."
+                self.text = "Let's get the financial out of the way. Please specify your budget in millions."
             elif case == 2:
-                self.text = "I bet the management gave you a huge transfer budget.All the values are in millions."
+                self.text = "I bet the management gave you a huge transfer budget. All the values are in millions."
 
         if dial_id == ID_WELCOME:
             case = random.randint(0, 2)
             if case == 0:
                 self.text = "Great! You are just a couple of questions away from a perfect player for your team."
             elif case == 1:
-                self.text = "I understand that the transfer deadline is fast approaching. Not to worry, you are in safe hands"
+                self.text = "I understand that the transfer deadline is fast approaching. Not to worry, you are in " \
+                            "safe hands "
             elif case == 2:
                 self.text = "I remember when I first started playing football, oh the smell of freshly cut " \
-                            "grass,and, ,oops! sorry I am getting distracted. Let's find you a player."
+                            "grass, and..., oops! sorry I am getting distracted. Let's find you a player."
 
         if dial_id == ID_SHOW_LIST_OF_STRIKER:
             case - random.randint(0, 2)
@@ -140,15 +142,14 @@ class DialogManager:
                 statement = "Looking to boost the engine room? Excellent."
             elif list_parameters[0] == "forward":
                 statement = "A lethal strike force can turn games on it's head."
-            case = random.randint(0, 2)
+            case = random.randint(0, 1)
             if case == 0:
-                self.text = "{0} What quality interests you the most? You can choose speed,strength,etc." \
+                self.text = "{0} What quality interests you the most? You can choose speed,strength,or other " \
+                            "attributes." \
                     .format(statement, list_parameters[0])
             elif case == 1:
-                self.text = "{0} Are you looking for a fast, strong or a young upcoming talent?" \
-                    .format(statement, list_parameters[0])
-            elif case == 2:
-                self.text = "{0} Is it strength or pace that interests you?" \
+                self.text = "{0} Are you looking for a fast, strong or a young upcoming talent?Tell me anything you " \
+                            "need." \
                     .format(statement, list_parameters[0])
 
         if dial_id == ID_FIND_HAS_PLAYER_NAME:
@@ -196,6 +197,7 @@ class DialogManager:
         if dial_id == ID_PURCHASE_COMPLETE:
             self.text = "Good choice! Merry Christmas!"
         if dial_id == ID_NO_RESULTS:
-            self.text = self.text = "Sorry, there is no {0} with a {1} {2}. Let's start again".format(list_parameters[0], list_parameters[1], list_parameters[2])
+            self.text = self.text = "Sorry, there is no {0} with a {1} {2}. Let's start again".format(
+                list_parameters[0], list_parameters[1], list_parameters[2])
 
         self.saySomething()

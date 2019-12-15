@@ -3,10 +3,9 @@
 
 from asr import asr
 import argparse
-from logic import *
+from logic.logic import *
 from nl import nlp_context
 from nl.nlp import *
-#from NFI import filter
 
 # 0 == Google Cloud Speech
 # 1 == Sphinx

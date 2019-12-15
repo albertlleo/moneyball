@@ -74,7 +74,7 @@ def list_request_players_is_empty(list_request_player):
 def ask_for_budget(context, dialog):
     while intent_not_has_budget(context):
         dialog.processDialog(ID_ASK_FOR_BUDGET)
-        budget = input("ask:")
+        budget = input("type from the keyboard (only digits):")
         if budget.isdigit():
             dialog.processDialog(ID_THANKS)
             context.budget_amount = budget
