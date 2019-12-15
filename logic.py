@@ -116,8 +116,19 @@ def process_intents(context, dialog):
         dialog.processDialog(ID_WELCOME)
 
     if intent_has_verb_and_player(context):
-        dialog.processDialog(ID_FIND_HAS_PLAYER_NAME, [context.player_name])
-        return context
+        if not context.has_confirmation:
+            dialog.processDialog(ID_FIND_HAS_PLAYER_NAME, [context.player_name])
+            #print(get_request_players(context))
+            dialog.processDialog(ID_CONFIRM_BUY_HIM)
+            return context
+        elif context.category_confirmation == "yes":
+            dialog.processDialog(ID_PURCHASE_COMPLETE)
+            context.request_is_still_active = False
+            return context
+        else:
+            dialog.processDialog(ID_RESTART_QUERY)
+            context.reset_for_new_search()
+            return context
 
     if intent_not_has_budget(context):
         context = ask_for_budget(context, dialog)
@@ -139,7 +150,6 @@ def process_intents(context, dialog):
             dialog.processDialog(ID_FIND_REQUEST_IS_READY, [context.category_player_role, context.quantifier_attribute,
                                                             context.category_attribute])
             list_request_player = get_request_players(context)
-            print(list_request_player)
 
             if list_request_players_is_empty(list_request_player):
                 dialog.processDialog(ID_INCREASE_BUDGET)
@@ -151,9 +161,11 @@ def process_intents(context, dialog):
             else:
                 dialog.processDialog(ID_PLAYER_LIST)
                 print(list_request_player)
+                dialog.processDialog(ID_CONFIRM_BUY)
+                return context
 
-        elif context.category_confirmation is "yes":
-            dialog.processDialog(ID_CONFIRM_BUY)
+        elif context.category_confirmation == "yes":
+            dialog.processDialog(ID_TELL_ME_NAME)
             return context
 
         else:

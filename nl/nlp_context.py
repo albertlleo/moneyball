@@ -56,5 +56,5 @@ class RequestContext:
         print("request_is_still_active\t", self.request_is_still_active)
         print("request_did_success\t", self.request_did_success)
         print("has_confirmation\t", self.has_confirmation)
-        print("confirmation_category\t", self.category_confirmation)
+        print("category_confirmation\t", self.category_confirmation)
         print("************")

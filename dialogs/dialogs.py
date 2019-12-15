@@ -24,6 +24,8 @@ ID_PLAYER_LIST = 17
 ID_CONFIRM_BUY = 18
 ID_RESTART_QUERY = 19
 ID_TELL_ME_NAME=20
+ID_CONFIRM_BUY_HIM = 21
+ID_PURCHASE_COMPLETE = 23
 
 ########################
 
@@ -181,8 +183,12 @@ class DialogManager:
         if dial_id == ID_CONFIRM_BUY:
             self.text = "Do you want to buy one of these players?"
         if dial_id == ID_RESTART_QUERY:
-            self.text = "I feel bad the results are not what you expected, let's restart the query"
+            self.text = "I feel bad the results are not what you expected, let's look for someone else"
         if dial_id == ID_TELL_ME_NAME:
             self.text = "Perfect! Please, tell me the name of the player you want. "
+        if dial_id == ID_CONFIRM_BUY_HIM:
+            self.text = "Perfect! Do you wanna buy him?"
+        if dial_id == ID_PURCHASE_COMPLETE:
+            self.text = "Good choice! Happy Christmas!"
 
         self.saySomething()
