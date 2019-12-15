@@ -10,6 +10,7 @@ class RequestContext:
     request_is_still_active = True
     request_did_success = False
     request_is_the_first_one = False
+    request_skip_input = False
 
     has_verb = False
     category_verb = ""

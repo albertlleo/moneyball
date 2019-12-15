@@ -28,12 +28,14 @@ def main():
     while context.request_is_still_active:
 
         input_text = ""
-        if args.asr:
-            input_text = asr.processASR(ASR_MODE)
-        else:
-            input_text = input("ask:")
+        if not context.request_skip_input:
+            if args.asr:
+                input_text = asr.processASR(ASR_MODE)
+            else:
+                input_text = input("ask:")
 
-        context = nlp_engine.process(input_text, context)
+            context = nlp_engine.process(input_text, context)
+        context.request_skip_input = False
         context.trace()
         context = process_logic(context, dialog)
 

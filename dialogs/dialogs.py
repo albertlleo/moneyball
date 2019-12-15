@@ -18,6 +18,8 @@ ID_GOODBYE = 12
 ID_INTENT_NOT_CLEAR = 13
 ID_HELP = 14
 ID_HOW_CAN_I_HELP_YOU = 15
+ID_INCREASE_BUDGET = 16
+ID_PLAYER_LIST =17
 ########################
 
 
@@ -27,7 +29,7 @@ class DialogManager:
 
     def saySomething(self):
         print(self.text)
-        self.voice.processTextToSpeech(self.text)
+        #self.voice.processTextToSpeech(self.text)
 
     def processDialog(self, dial_id, list_parameters=[]):
 
@@ -51,16 +53,16 @@ class DialogManager:
             elif case == 1:
                 self.text = "{0}! I am John, the best transfer market bot available. How may I be of service?".format(greeting_2)
             elif case == 2:
-                self.text = "Hi! I am Morty and I will help you find the best player. Please start by asking a question."
+                self.text = "Hi! I am John and I will help you find the best player. What are you looking for?"
 
         if dial_id == ID_INTENT_NOT_CLEAR:
             case = random.randint(0, 2)
             if case == 0:
-                self.text = "Sorry, I didn't quite get that. Could you repeat?"
+                self.text = "Sorry, I didn't quite get that."
             elif case == 1:
-                self.text = "Sorry, Can you repeat that again?"
+                self.text = "Sorry, can you repeat that again?"
             elif case == 2:
-                self.text = "Sorry, I missed that. Can you repeat?"
+                self.text = "Sorry, I missed that."
 
         if dial_id == ID_GOODBYE:
             case = random.randint(0, 2)
@@ -86,9 +88,9 @@ class DialogManager:
         if dial_id == ID_ASK_FOR_BUDGET:
             case = random.randint(0, 2)
             if case == 0:
-                self.text = "What's the allocated budget, coach?"
+                self.text = "What's the allocated budget,coach. Please specify it in millions."
             if case == 1:
-                self.text = "Let's get the financials out of the way. Whats the budget we are working with here,coach?"
+                self.text = "Let's get the financials out of the way. Whats the budget we are working with here,coach?.Please specify it in millions"
             if case == 2:
                 self.text = "I bet the management gave you a huge transfer budget. Can you share that with me?"
 
@@ -127,14 +129,23 @@ class DialogManager:
                 self.text = "{0} Are you looking for a fast, strong or a young upcoming talent?"\
                     .format(statement, list_parameters[0])
             if case == 2:
-                self.text = "{0} Is it strength or longevity or blistering pace that you seek?"\
+                self.text = "{0} Is it strength or jack of all trades or blistering pace that you seek?"\
                     .format(statement, list_parameters[0])
+
         if dial_id == ID_FIND_HAS_PLAYER_NAME:
             self.text = "Ok, here you have all the information for {0} ".format(list_parameters[0])
+
         if dial_id == ID_ASK_PLAYER_ROLE:
-            self.text = "What player role do you need?"
+            case = random.randint(0, 2)
+            if case == 0:
+                self.text = "What player role do you need?"
+            if case == 1:
+                self.text = "Are you looking for a defender, midfielder or a goal machine? "
+            if case == 2:
+                self.text = "What position are you looking to improve?"
+
         if dial_id == ID_ASK_QUANTIFIER:
-            self.text = "Ok, tell me some quantifiers about the {0} for that {1}".format(list_parameters[0],
+            self.text = "Are you looking for the best {1} for that {0}.Remember everything comes at a price.".format(list_parameters[0],
                                                                                          list_parameters[1])
         if dial_id == ID_FIND_REQUEST_IS_READY:
             case = random.randint(0, 2)
@@ -145,5 +156,8 @@ class DialogManager:
             elif 1 == case:
                 self.text = "Ok, I search for a {1} {2} {0}".format(list_parameters[0], list_parameters[1],
                                                                     list_parameters[2])
-
+        if dial_id == ID_INCREASE_BUDGET:
+            self.text = "I didn't find any players. You need to increase the budget."
+        if dial_id == ID_PLAYER_LIST:
+            self.text = "Here's the list of the players I found."
         self.saySomething()
