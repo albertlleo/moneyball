@@ -118,7 +118,7 @@ def process_intents(context, dialog):
     if intent_has_verb_and_player(context):
         if not context.has_confirmation:
             dialog.processDialog(ID_FIND_HAS_PLAYER_NAME, [context.player_name])
-            #print(get_request_players(context))
+            print(get_request_players(context))
             dialog.processDialog(ID_CONFIRM_BUY_HIM)
             return context
         elif context.category_confirmation == "yes":
