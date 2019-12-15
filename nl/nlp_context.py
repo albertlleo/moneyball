@@ -7,31 +7,37 @@ Author: marco_bertola
 
 class RequestContext:
 
-    request_is_still_active = True
-    request_did_success = False
-    request_is_the_first_one = False
-    request_skip_input = False
+    def __init__(self):
+        self.request_is_still_active = True
+        self.request_did_success = False
+        self.request_is_the_first_one = False
+        self.request_skip_input = False
 
-    has_verb = False
-    category_verb = ""
+        self.has_verb = False
+        self.category_verb = ""
 
-    has_attribute = False
-    category_attribute = ""
+        self.has_attribute = False
+        self.category_attribute = ""
 
-    has_quantifier = False
-    quantifier_attribute = ""
+        self.has_quantifier = False
+        self.quantifier_attribute = ""
 
-    has_player_role = False
-    category_player_role = ""
+        self.has_player_role = False
+        self.category_player_role = ""
 
-    has_budget = False
-    budget_amount = 0
+        self.has_budget = False
+        self.budget_amount = 0
 
-    has_player_name = False
-    player_name = ""
+        self.has_player_name = False
+        self.player_name = ""
 
-    has_confirmation = False
-    category_confirmation = ""
+        self.has_confirmation = False
+        self.category_confirmation = ""
+
+    def reset_for_new_search(self):
+        self.__init__()
+        self.has_verb = True
+        self.category_verb = "find"
 
     def trace(self):
         print("\n******CONTEXT******")
@@ -50,6 +56,5 @@ class RequestContext:
         print("request_is_still_active\t", self.request_is_still_active)
         print("request_did_success\t", self.request_did_success)
         print("has_confirmation\t", self.has_confirmation)
-        print("confirmation_category\t", self.category_confirmation)
+        print("category_confirmation\t", self.category_confirmation)
         print("************")
-
