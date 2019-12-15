@@ -3,10 +3,10 @@ high
 	best
 	top
 	highest
-	fast
-	young
+	fast->[infers;has_attribute;speed]
+	old->[infers;has_attribute;age]
 	expensive
-	more expensive
+	strong->[infers;has_attribute;stamina]
 medium
 	medium
 	good
@@ -17,7 +17,7 @@ low
 	low
 	cheap
 	poor
-	young
+	young->[infers;has_attribute;age]
 	slow
 	lower
 	cheaper

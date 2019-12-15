@@ -3,9 +3,31 @@
 """
 Author: marco_bertola
 """
+import re
 
 
 class Semantic:
+    infers = {}
+
+    @staticmethod
+    def check_infers(token, context):
+
+        for key in Semantic.infers:
+            if token == key:
+                info = Semantic.infers.get(key)
+                if info[0] == "has_attribute":
+                    context.has_attribute = True
+                    context.category_attribute = info[1]
+                if info[0] == "has_quantifier":
+                    context.has_quantifier = True
+                    context.quantifier_attribute = info[1]
+
+    def compute_infer(self, token, rules):
+        m = re.search('\[(.+?)\]', rules)
+        text = m.group(1)
+        items = text.split(";")
+        context_info = [items[1], items[2]]
+        self.infers[token] = context_info
 
     def category(self, token):
 
@@ -38,6 +60,10 @@ class Semantic:
             node = last_line.strip()
             if tabs >= depth:
                 if parent is not None:
+                    nodes = node.split("->")
+                    node = nodes[0]
+                    if len(nodes) > 1:
+                        self.compute_infer(node, nodes[1])
                     if parent in semantic.keys():
                         semantic[parent].append(node)
                     else:
