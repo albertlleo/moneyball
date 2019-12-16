@@ -116,7 +116,7 @@ class DialogManager:
                 self.text = "Great! You are just a couple of questions away from a perfect player for your team."
             elif case == 1:
                 self.text = "I understand that the transfer deadline is fast approaching. Not to worry, you are in " \
-                            "safe hands "
+                            "safe hands. "
             elif case == 2:
                 self.text = "I remember when I first started playing football, oh the smell of freshly cut " \
                             "grass, and..., oops! sorry I am getting distracted. Let's find you a player."
@@ -148,7 +148,7 @@ class DialogManager:
                             "attributes." \
                     .format(statement, list_parameters[0])
             elif case == 1:
-                self.text = "{0} Are you looking for a fast, strong or a young upcoming talent?Tell me anything you " \
+                self.text = "{0} Are you looking for a fast, strong or a young upcoming talent? Tell me anything you " \
                             "need." \
                     .format(statement, list_parameters[0])
 
@@ -172,7 +172,7 @@ class DialogManager:
                     list_parameters[1])
             elif case == 1:
                 self.text = "Best {0} are costly while cheaper ones are average. Are you looking for an average or a " \
-                            "best player? "
+                            "best player?".format(list_parameters[0])
         if dial_id == ID_FIND_REQUEST_IS_READY:
             case = random.randint(0, 1)
             if 0 == case:
